@@ -4,19 +4,20 @@ import {
   Center,
   Heading,
   Stack,
-  Text,
   Input,
   InputGroup,
   InputLeftElement,
   FormControl,
 } from '@chakra-ui/react';
 import { AtSignIcon, LockIcon } from '@chakra-ui/icons';
+import Register from './register';
 
 function Login() {
-  const [event, setEvent] = useState({
+  const defaultState = {
     email: '',
     password: '',
-  });
+  };
+  const [event, setEvent] = useState(defaultState);
 
   const isInvalid = event.email === '' || event.password === '';
 
@@ -28,16 +29,17 @@ function Login() {
 
   const handleSubmit = e => {
     e.preventDefault();
+    setEvent(defaultState);
 
     console.log('Signing in...');
   };
 
   return (
     <Center h="100vh" bg="red.100">
-      <Stack boxShadow="md" bg="whiteAlpha.900" rounded="md" p="10" spacing="4">
+      <Stack boxShadow="md" bg="whiteAlpha.900" rounded="md" p="10" spacing="5">
         <Heading as="h1">Log in</Heading>
         <form action="submit" onSubmit={handleSubmit}>
-          <Stack spacing="3">
+          <Stack spacing="5">
             <FormControl isRequired>
               <InputGroup>
                 <InputLeftElement
@@ -64,6 +66,7 @@ function Login() {
                   id="password"
                   type="password"
                   placeholder="Enter password"
+                  autoComplete="on"
                   value={event.password}
                   onChange={handleChange}
                 />
@@ -74,15 +77,7 @@ function Login() {
             </Button>
           </Stack>
         </form>
-
-        <Stack justify="center" color="gray.600" spacing="3">
-          <Text as="div" textAlign="center">
-            <span>Don't have an account? </span>
-            <Button variant="link" colorScheme="red">
-              Sign up
-            </Button>
-          </Text>
-        </Stack>
+        <Register />
       </Stack>
     </Center>
   );
