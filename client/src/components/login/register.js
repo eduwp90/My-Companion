@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import {
   Button,
   Stack,
@@ -20,6 +20,7 @@ import {
 import UserService from '../../services/userService';
 import Auth from '../../helpers/auth';
 import ErrorMessage from './errorMessage';
+import { UserContext } from '../../UserContext';
 
 function Register() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -51,6 +52,8 @@ function Register() {
     invalidPassword ||
     invalidEmail;
 
+  const { setUser } = useContext(UserContext);
+
   const handleChange = e => {
     const name = e.target.id;
     const value = e.target.value;
@@ -65,9 +68,11 @@ function Register() {
 
     if (typeof user === 'string') {
       setError({ isError: true, errorMessage: user });
+      setEvent(defaultState);
+      setIsLoading(false);
+    } else {
+      setUser(user);
     }
-    setEvent(defaultState);
-    setIsLoading(false);
   };
 
   return (

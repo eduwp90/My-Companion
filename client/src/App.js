@@ -1,11 +1,16 @@
 import * as React from 'react';
-import { useEffect } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { ChakraProvider } from '@chakra-ui/react';
 import Login from './components/login/login';
-import Parse from 'parse/dist/parse.min.js';
+import Dashboard from './components/dashboard/dashboard';
+import Parse from 'parse/dist/parse.min';
 import UserService from './services/userService';
+import { UserContext } from './UserContext';
 
 function App() {
+  const [user, setUser] = useState(null);
+  const providerValue = useMemo(() => ({ user, setUser }), [user, setUser]);
+
   useEffect(() => {
     Parse.initialize(
       process.env.REACT_APP_APP_ID,
@@ -13,11 +18,14 @@ function App() {
     );
 
     Parse.serverURL = process.env.REACT_APP_SERVER_URL;
+    setUser(UserService.getCurrentUser());
   }, []);
 
   return (
     <ChakraProvider>
-      <Login />
+      <UserContext.Provider value={providerValue}>
+        {user ? <Dashboard /> : <Login />}
+      </UserContext.Provider>
     </ChakraProvider>
   );
 }

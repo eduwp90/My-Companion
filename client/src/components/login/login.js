@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import {
   Button,
   Center,
@@ -14,6 +14,7 @@ import { AtSignIcon, LockIcon } from '@chakra-ui/icons';
 import Register from './register';
 import ErrorMessage from './errorMessage';
 import UserService from '../../services/userService';
+import { UserContext } from '../../UserContext';
 
 function Login() {
   const defaultState = {
@@ -31,6 +32,8 @@ function Login() {
 
   const isInvalid = event.email === '' || event.password === '';
 
+  const { setUser } = useContext(UserContext);
+
   const handleChange = e => {
     const name = e.target.id;
     const value = e.target.value;
@@ -46,11 +49,11 @@ function Login() {
 
     if (typeof user === 'string') {
       setError({ isError: true, errorMessage: user });
+      setEvent(defaultState);
+      setIsLoading(false);
+    } else {
+      setUser(user);
     }
-    console.log(user);
-
-    setEvent(defaultState);
-    setIsLoading(false);
   };
 
   return (

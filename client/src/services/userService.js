@@ -30,10 +30,21 @@ async function loginUser(email, password) {
   }
 }
 
+async function logoutUser() {
+  try {
+    await Parse.User.logOut();
+    const currentUser = Parse.User.current();
+    return currentUser;
+  } catch (error) {
+    //console.error('Error: ' + error.code + ' ' + error.message);
+    return error.message;
+  }
+}
+
 function getCurrentUser() {
   return Parse.User.current();
 }
 
-const UserService = { saveUser, loginUser, getCurrentUser };
+const UserService = { saveUser, loginUser, getCurrentUser, logoutUser };
 
 export default UserService;
