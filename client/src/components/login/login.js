@@ -8,16 +8,26 @@ import {
   InputGroup,
   InputLeftElement,
   FormControl,
+  CircularProgress,
 } from '@chakra-ui/react';
 import { AtSignIcon, LockIcon } from '@chakra-ui/icons';
 import Register from './register';
+import ErrorMessage from './errorMessage';
+import UserService from '../../services/userService';
 
 function Login() {
   const defaultState = {
     email: '',
     password: '',
   };
+
+  const errorState = {
+    isError: false,
+    errorMessage: '',
+  };
   const [event, setEvent] = useState(defaultState);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(errorState);
 
   const isInvalid = event.email === '' || event.password === '';
 
@@ -27,11 +37,20 @@ function Login() {
     setEvent({ ...event, [name]: value });
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault();
-    setEvent(defaultState);
+    setIsLoading(true);
+    setError({ ...error, isError: false });
 
-    console.log('Signing in...');
+    const user = await UserService.loginUser(event.email, event.password);
+
+    if (typeof user === 'string') {
+      setError({ isError: true, errorMessage: user });
+    }
+    console.log(user);
+
+    setEvent(defaultState);
+    setIsLoading(false);
   };
 
   return (
@@ -39,6 +58,7 @@ function Login() {
       <Stack boxShadow="md" bg="whiteAlpha.900" rounded="md" p="10" spacing="5">
         <Heading as="h1">Log in</Heading>
         <form action="submit" onSubmit={handleSubmit}>
+          {error.isError && <ErrorMessage message={error.errorMessage} />}
           <Stack spacing="5">
             <FormControl isRequired>
               <InputGroup>
@@ -73,7 +93,11 @@ function Login() {
               </InputGroup>
             </FormControl>
             <Button type="submit" colorScheme="red" isDisabled={isInvalid}>
-              Log in
+              {isLoading ? (
+                <CircularProgress isIndeterminate size="24px" color="teal" />
+              ) : (
+                'Log In'
+              )}
             </Button>
           </Stack>
         </form>

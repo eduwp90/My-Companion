@@ -11,17 +11,29 @@ async function saveUser(email, password) {
     const currentUser = Parse.User.current();
     console.log('Current user ', currentUser);
     // Hooray! Let them use the app now.
+    return currentUser;
   } catch (error) {
     // Show the error message somewhere and let the user try again.
-    alert('Error: ' + error.code + ' ' + error.message);
+    //console.error('Error: ' + error.code + ' ' + error.message);
+    return error.message;
   }
 }
 
 async function loginUser(email, password) {
-  const user = await Parse.User.logIn(email, password);
-  // Do stuff after successful login.
+  try {
+    await Parse.User.logIn(email, password);
+    const currentUser = Parse.User.current();
+    return currentUser;
+  } catch (error) {
+    //console.error('Error: ' + error.code + ' ' + error.message);
+    return error.message;
+  }
 }
 
-const UserService = { saveUser, loginUser };
+function getCurrentUser() {
+  return Parse.User.current();
+}
+
+const UserService = { saveUser, loginUser, getCurrentUser };
 
 export default UserService;

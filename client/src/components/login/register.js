@@ -14,8 +14,12 @@ import {
   Input,
   InputGroup,
   FormControl,
+  FormErrorMessage,
+  CircularProgress,
 } from '@chakra-ui/react';
-import UserService from '../services/userService';
+import UserService from '../../services/userService';
+import Auth from '../../helpers/auth';
+import ErrorMessage from './errorMessage';
 
 function Register() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -25,15 +29,27 @@ function Register() {
     password: '',
     repeat: '',
   };
+
+  const errorState = {
+    isError: false,
+    errorMessage: '',
+  };
   const [event, setEvent] = useState(defaultState);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(errorState);
 
   const invalidPassword = event.password !== event.repeat;
+
+  const invalidEmail = event.email.length
+    ? !Auth.validateEmail(event.email)
+    : false;
 
   const isInvalid =
     event.email === '' ||
     event.password === '' ||
     event.repeat === '' ||
-    invalidPassword;
+    invalidPassword ||
+    invalidEmail;
 
   const handleChange = e => {
     const name = e.target.id;
@@ -41,12 +57,17 @@ function Register() {
     setEvent({ ...event, [name]: value });
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault();
-    UserService.saveUser(event.email, event.password);
-    setEvent(defaultState);
+    setIsLoading(true);
+    setError({ ...error, isError: false });
+    const user = await UserService.saveUser(event.email, event.password);
 
-    console.log('registering...');
+    if (typeof user === 'string') {
+      setError({ isError: true, errorMessage: user });
+    }
+    setEvent(defaultState);
+    setIsLoading(false);
   };
 
   return (
@@ -62,11 +83,12 @@ function Register() {
         <ModalOverlay />
         <ModalContent m={2}>
           <ModalHeader>Register</ModalHeader>
+          <ModalCloseButton />
           <form action="submit" onSubmit={handleSubmit}>
-            <ModalCloseButton />
             <ModalBody>
               <Stack spacing="3">
-                <FormControl isRequired>
+                {error.isError && <ErrorMessage message={error.errorMessage} />}
+                <FormControl isRequired isInvalid={invalidEmail}>
                   <InputGroup>
                     <Input
                       id="email"
@@ -76,6 +98,11 @@ function Register() {
                       onChange={handleChange}
                     />
                   </InputGroup>
+                  {invalidEmail && (
+                    <FormErrorMessage>
+                      Should be a valid email.
+                    </FormErrorMessage>
+                  )}
                 </FormControl>
 
                 <FormControl isRequired>
@@ -91,24 +118,32 @@ function Register() {
                     />
                   </InputGroup>
                 </FormControl>
-                <FormControl isRequired>
+                <FormControl isRequired isInvalid={invalidPassword}>
                   <InputGroup>
                     <Input
                       id="repeat"
                       type="password"
                       placeholder="Repeat password"
                       autoComplete="off"
-                      isInvalid={invalidPassword}
                       value={event.repeat}
                       onChange={handleChange}
                     />
                   </InputGroup>
+                  {invalidPassword && (
+                    <FormErrorMessage>
+                      Passwords should be the equal.
+                    </FormErrorMessage>
+                  )}
                 </FormControl>
               </Stack>
             </ModalBody>
             <ModalFooter>
               <Button type="submit" colorScheme="red" isDisabled={isInvalid}>
-                Create Account
+                {isLoading ? (
+                  <CircularProgress isIndeterminate size="24px" color="teal" />
+                ) : (
+                  'Create Account'
+                )}
               </Button>
             </ModalFooter>
           </form>
