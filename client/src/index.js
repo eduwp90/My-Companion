@@ -4,11 +4,21 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import * as serviceWorker from './serviceWorker';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Login from './components/login/login';
+import Dashboard from './components/dashboard/dashboard';
 
 ReactDOM.render(
   <StrictMode>
-    <ColorModeScript />
-    <App />
+    <BrowserRouter>
+      <ColorModeScript />
+      <Routes>
+        <Route path="/" element={<App />}>
+          <Route path="login" element={<Login />} />
+          <Route path="dashboard" element={<Dashboard />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   </StrictMode>,
   document.getElementById('root')
 );

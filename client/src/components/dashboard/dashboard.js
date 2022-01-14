@@ -128,7 +128,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
           <PopoverContent>
             <PopoverArrow />
             <PopoverCloseButton />
-            <PopoverHeader>{`${user.attributes.email}`}</PopoverHeader>
+            <PopoverHeader>{user && `${user.attributes.email}`}</PopoverHeader>
             <PopoverBody>
               <Button colorScheme="red" w={'100%'} onClick={handleClick}>
                 Log out

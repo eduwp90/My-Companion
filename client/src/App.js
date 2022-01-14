@@ -1,15 +1,15 @@
 import * as React from 'react';
 import { useEffect, useState, useMemo } from 'react';
 import { ChakraProvider } from '@chakra-ui/react';
-import Login from './components/login/login';
-import Dashboard from './components/dashboard/dashboard';
-import Parse from 'parse/dist/parse.min';
+import Parse from 'parse/dist/parse.min.js';
 import UserService from './services/userService';
 import { UserContext } from './UserContext';
+import { Outlet, useNavigate } from 'react-router-dom';
 
 function App() {
   const [user, setUser] = useState(null);
   const providerValue = useMemo(() => ({ user, setUser }), [user, setUser]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     Parse.initialize(
@@ -19,12 +19,13 @@ function App() {
 
     Parse.serverURL = process.env.REACT_APP_SERVER_URL;
     setUser(UserService.getCurrentUser());
-  }, []);
+    user ? navigate('dashboard') : navigate('login');
+  }, [navigate, user]);
 
   return (
     <ChakraProvider>
       <UserContext.Provider value={providerValue}>
-        {user ? <Dashboard /> : <Login />}
+        <Outlet />
       </UserContext.Provider>
     </ChakraProvider>
   );
