@@ -9304,6 +9304,11 @@
   dependencies:
     "punycode" "^2.1.0"
 
+"use-async-effect@^2.2.5":
+  "integrity" "sha512-0TBhYJ0K6aN7jG8niDDO570ZXoCaIjMCryG0FBNvC9RkHqhb4m8LQlTlkhw40sXtZPwNN1QoYkSlCXB4enaFsQ=="
+  "resolved" "https://registry.npmjs.org/use-async-effect/-/use-async-effect-2.2.5.tgz"
+  "version" "2.2.5"
+
 "use-callback-ref@^1.2.3", "use-callback-ref@^1.2.5":
   "integrity" "sha512-gN3vgMISAgacF7sqsLPByqoePooY3n2emTH59Ur5d/M8eg4WTWu1xp8i8DHjohftIyEx0S08RiYxbffr4j8Peg=="
   "resolved" "https://registry.npmjs.org/use-callback-ref/-/use-callback-ref-1.2.5.tgz"

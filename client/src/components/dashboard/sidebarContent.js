@@ -13,7 +13,7 @@ import { PetsContext } from './petsContext';
 import SidebarPetElement from './sidebarPetElement';
 
 const SidebarContent = ({ onClose, ...rest }) => {
-  const { pets, setPets } = useContext(PetsContext);
+  const { pets, setPets, component, setComponent } = useContext(PetsContext);
   return (
     <Box
       transition="1s ease"
@@ -37,7 +37,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
       <VStack flexGrow="1">
         {pets && pets.length ? (
           pets.map(pet => {
-            return <SidebarPetElement key={pet.id} pet={pet}/>;
+            return <SidebarPetElement key={pet.id} pet={pet} />;
           })
         ) : (
           <Center h="100%">
@@ -52,8 +52,16 @@ const SidebarContent = ({ onClose, ...rest }) => {
           </Center>
         )}
       </VStack>
-      <Button w={'100%'} m>
-        Register Pet
+      <Button
+        w={'100%'}
+        colorScheme="red"
+        isDisabled={component === 0}
+        onClick={() => {
+          setComponent(0);
+          onClose();
+        }}
+      >
+        + Add New Pet
       </Button>
     </Box>
   );

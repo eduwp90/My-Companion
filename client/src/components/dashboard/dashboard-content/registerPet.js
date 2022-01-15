@@ -1,4 +1,4 @@
-import React, { useState, useContext, useRef } from 'react';
+import React, { useState, useContext, useRef, useEffect } from 'react';
 import { PetsContext } from '../petsContext';
 import {
   Heading,
@@ -44,7 +44,7 @@ function RegisterPet() {
     event.dateOfBirth === '' ||
     event.color === '';
 
-  const { pets, setPets } = useContext(PetsContext);
+  const { pets, setPets , setActivePet , setComponent} = useContext(PetsContext);
   const { user } = useContext(UserContext);
 
   const handleChange = e => {
@@ -65,7 +65,9 @@ function RegisterPet() {
       setEvent(defaultState);
       setIsLoading(false);
     } else {
+      setActivePet(newPet);
       setPets([...pets, newPet]);
+      setComponent(1);
     }
   };
 
@@ -73,6 +75,10 @@ function RegisterPet() {
     const photoToUpload = e.target && e.target.files[0];
     setPhoto(photoToUpload);
   };
+
+  useEffect(() => {
+    setActivePet(null);
+  },[]);
 
   return (
     <Stack bg="white" p="3" spacing="3" rounded="md">

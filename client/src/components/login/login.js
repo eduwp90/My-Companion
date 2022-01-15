@@ -9,6 +9,8 @@ import {
   InputLeftElement,
   FormControl,
   CircularProgress,
+  Image,
+  VStack,
 } from '@chakra-ui/react';
 import { AtSignIcon, LockIcon } from '@chakra-ui/icons';
 import Register from './register';
@@ -58,54 +60,66 @@ function Login() {
 
   return (
     <Center h="100vh" bg="red.100">
-      <Stack boxShadow="md" bg="whiteAlpha.900" rounded="md" p="10" spacing="5">
-        <Heading as="h1">Log in</Heading>
-        <form action="submit" onSubmit={handleSubmit}>
-          {error.isError && <ErrorMessage message={error.errorMessage} />}
-          <Stack spacing="5">
-            <FormControl isRequired>
-              <InputGroup>
-                <InputLeftElement
-                  pointerEvents="none"
-                  children={<AtSignIcon color="gray.500" />}
-                />
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="Enter email"
-                  value={event.email}
-                  onChange={handleChange}
-                />
-              </InputGroup>
-            </FormControl>
+      <VStack>
+        <Image src="appLogo-narrow.png" maxW="280px"></Image>
 
-            <FormControl isRequired>
-              <InputGroup>
-                <InputLeftElement
-                  pointerEvents="none"
-                  children={<LockIcon color="gray.500" />}
-                />
-                <Input
-                  id="password"
-                  type="password"
-                  placeholder="Enter password"
-                  autoComplete="on"
-                  value={event.password}
-                  onChange={handleChange}
-                />
-              </InputGroup>
-            </FormControl>
-            <Button type="submit" colorScheme="red" isDisabled={isInvalid}>
-              {isLoading ? (
-                <CircularProgress isIndeterminate size="24px" color="teal" />
-              ) : (
-                'Log In'
-              )}
-            </Button>
-          </Stack>
-        </form>
-        <Register />
-      </Stack>
+        <Stack
+          boxShadow="md"
+          bg="whiteAlpha.900"
+          rounded="md"
+          p="10"
+          spacing="5"
+        >
+          <Heading as="h1" size="md">
+            Log in
+          </Heading>
+          <form action="submit" onSubmit={handleSubmit}>
+            {error.isError && <ErrorMessage message={error.errorMessage} />}
+            <Stack spacing="5">
+              <FormControl isRequired>
+                <InputGroup>
+                  <InputLeftElement
+                    pointerEvents="none"
+                    children={<AtSignIcon color="gray.500" />}
+                  />
+                  <Input
+                    id="email"
+                    type="email"
+                    placeholder="Enter email"
+                    value={event.email}
+                    onChange={handleChange}
+                  />
+                </InputGroup>
+              </FormControl>
+
+              <FormControl isRequired>
+                <InputGroup>
+                  <InputLeftElement
+                    pointerEvents="none"
+                    children={<LockIcon color="gray.500" />}
+                  />
+                  <Input
+                    id="password"
+                    type="password"
+                    placeholder="Enter password"
+                    autoComplete="on"
+                    value={event.password}
+                    onChange={handleChange}
+                  />
+                </InputGroup>
+              </FormControl>
+              <Button type="submit" colorScheme="red" isDisabled={isInvalid}>
+                {isLoading ? (
+                  <CircularProgress isIndeterminate size="24px" color="teal" />
+                ) : (
+                  'Log In'
+                )}
+              </Button>
+            </Stack>
+          </form>
+          <Register />
+        </Stack>
+      </VStack>
     </Center>
   );
 }

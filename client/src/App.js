@@ -7,19 +7,21 @@ import { UserContext } from './UserContext';
 import { Outlet, useNavigate } from 'react-router-dom';
 
 function App() {
-  const [user, setUser] = useState(null);
-  const providerValue = useMemo(() => ({ user, setUser }), [user, setUser]);
-  const navigate = useNavigate();
-
   Parse.initialize(
     process.env.REACT_APP_APP_ID,
     process.env.REACT_APP_JAVASCRIPT_KEY
   );
 
   Parse.serverURL = process.env.REACT_APP_SERVER_URL;
+
+  const [user, setUser] = useState(UserService.getCurrentUser());
+  const providerValue = useMemo(() => ({ user, setUser }), [user, setUser]);
+  const navigate = useNavigate();
+
   useEffect(() => {
-    setUser(UserService.getCurrentUser());
+    
     user ? navigate('dashboard') : navigate('login');
+    console.log('useeffect root');
   }, [navigate, user]);
 
   return (

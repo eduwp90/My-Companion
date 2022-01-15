@@ -1,4 +1,10 @@
-import React, { useState, useMemo, useEffect, useContext } from 'react';
+import React, {
+  useState,
+  useMemo,
+  useEffect,
+  useContext,
+  useCallback,
+} from 'react';
 import {
   useDisclosure,
   Drawer,
@@ -13,39 +19,48 @@ import { UserContext } from '../../UserContext';
 import PetsService from '../../services/petsService';
 import RegisterPet from './dashboard-content/registerPet';
 import LoadingContent from './dashboard-content/loadingContent';
-// import { Outlet, useNavigate } from 'react-router-dom';
+import useAsyncEffect from 'use-async-effect';
+import { Redirect } from 'react-router-dom';
 import Overview from './dashboard-content/overview';
 
 function Dashboard() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isLoadingContent, setIsLoadingContent] = useState(false);
+  const [component, setComponent] = useState(0);
+
   const [pets, setPets] = useState([]);
   const [activePet, setActivePet] = useState(null);
 
   const { user } = useContext(UserContext);
-  // const navigate = useNavigate();
 
   const providerValue = useMemo(
-    () => ({ pets, setPets, activePet, setActivePet }),
-    [pets, setPets, activePet, setActivePet]
+    () => ({ pets, setPets, activePet, setActivePet, component, setComponent }),
+    [pets, setPets, activePet, setActivePet, component, setComponent]
   );
 
-  async function fetchPetList(user) {
-    setIsLoadingContent(true);
-    const petsList = await PetsService.findPetsByUser(user);
-    setPets([...petsList]);
-    setIsLoadingContent(false);
-    // navigateTo();
+  function renderContent(component) {
+    switch (component) {
+      case 0:
+        return <RegisterPet />;
+      case 1:
+        return <Overview />;
+      default:
+        return <RegisterPet />;
+    }
   }
 
-  // function navigateTo() {
-  //   if (user) {
-  //     pets.length ? navigate('overview') : navigate('register');
-  //   }
-  // }
-
   useEffect(() => {
-    fetchPetList(user);
+    async function fetchPetList() {
+      setIsLoadingContent(true);
+      const petsList = await PetsService.findPetsByUser(user);
+      setIsLoadingContent(false);
+
+      setPets([...petsList]);
+      if (petsList.length) setComponent(1);
+    }
+    console.log('useeffect dashboard');
+
+    fetchPetList();
   }, []);
 
   return (
@@ -72,8 +87,7 @@ function Dashboard() {
         <MobileNavBar onOpen={onOpen} />
         <Box ml={{ base: 0, md: 60 }} p="2" h="85vh">
           {isLoadingContent && <LoadingContent />}
-          {!isLoadingContent && pets.length && <Overview />}
-          {!isLoadingContent && !pets.length && <RegisterPet />}
+          {!isLoadingContent && renderContent(component)}
         </Box>
       </PetsContext.Provider>
     </Box>
