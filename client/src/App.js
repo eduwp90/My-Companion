@@ -11,13 +11,13 @@ function App() {
   const providerValue = useMemo(() => ({ user, setUser }), [user, setUser]);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    Parse.initialize(
-      process.env.REACT_APP_APP_ID,
-      process.env.REACT_APP_JAVASCRIPT_KEY
-    );
+  Parse.initialize(
+    process.env.REACT_APP_APP_ID,
+    process.env.REACT_APP_JAVASCRIPT_KEY
+  );
 
-    Parse.serverURL = process.env.REACT_APP_SERVER_URL;
+  Parse.serverURL = process.env.REACT_APP_SERVER_URL;
+  useEffect(() => {
     setUser(UserService.getCurrentUser());
     user ? navigate('dashboard') : navigate('login');
   }, [navigate, user]);
