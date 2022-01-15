@@ -10,6 +10,7 @@ import {
   Center,
 } from '@chakra-ui/react';
 import { PetsContext } from './petsContext';
+import SidebarPetElement from './sidebarPetElement';
 
 const SidebarContent = ({ onClose, ...rest }) => {
   const { pets, setPets } = useContext(PetsContext);
@@ -35,7 +36,9 @@ const SidebarContent = ({ onClose, ...rest }) => {
       </Flex>
       <VStack flexGrow="1">
         {pets && pets.length ? (
-          <p>pets length</p>
+          pets.map(pet => {
+            return <SidebarPetElement key={pet.id} pet={pet}/>;
+          })
         ) : (
           <Center h="100%">
             <Text

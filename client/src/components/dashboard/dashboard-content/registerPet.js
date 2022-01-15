@@ -50,7 +50,6 @@ function RegisterPet() {
   const handleChange = e => {
     const name = e.target.id;
     let value = e.target.value;
-    // if (name === 'dateOfBirth') value = Date.parse(value);
 
     setEvent({ ...event, [name]: value });
   };

@@ -7,6 +7,8 @@ import * as serviceWorker from './serviceWorker';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Login from './components/login/login';
 import Dashboard from './components/dashboard/dashboard';
+import RegisterPet from './components/dashboard/dashboard-content/registerPet';
+import Overview from './components/dashboard/dashboard-content/overview';
 
 ReactDOM.render(
   <StrictMode>
@@ -15,7 +17,10 @@ ReactDOM.render(
       <Routes>
         <Route path="/" element={<App />}>
           <Route path="login" element={<Login />} />
-          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="dashboard" element={<Dashboard />}>
+            <Route path="register" element={<RegisterPet />} />
+            <Route path="overview" element={<Overview />} />
+          </Route>
         </Route>
       </Routes>
     </BrowserRouter>
