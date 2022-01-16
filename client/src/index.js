@@ -8,7 +8,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Login from './components/login/login';
 import Dashboard from './components/dashboard/dashboard';
 import RegisterPet from './components/dashboard/dashboard-content/registerPet';
-import Overview from './components/dashboard/dashboard-content/overview';
+import GeneralInfo from './components/dashboard/dashboard-content/generalInfo';
 
 ReactDOM.render(
   <StrictMode>
@@ -19,7 +19,7 @@ ReactDOM.render(
           <Route path="login" element={<Login />} />
           <Route path="dashboard" element={<Dashboard />}>
             <Route path="register" element={<RegisterPet />} />
-            <Route path="overview" element={<Overview />} />
+            <Route path="overview" element={<GeneralInfo />} />
           </Route>
         </Route>
       </Routes>

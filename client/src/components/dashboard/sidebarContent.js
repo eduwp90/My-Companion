@@ -28,13 +28,31 @@ const SidebarContent = ({ onClose, ...rest }) => {
       flexDir="column"
       {...rest}
     >
-      <Flex h="70px" alignItems="center" mx="2" justifyContent="space-between">
+      <Flex
+        height="63px"
+        alignItems="center"
+        mx="2"
+        justifyContent="space-between"
+      >
         <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
           Your Pets
         </Text>
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
-      <VStack flexGrow="1">
+      <VStack
+        flexGrow="1"
+        overflowY="auto"
+        sx={{
+          '&::-webkit-scrollbar': {
+            width: '0px',
+            backgroundColor: 'transparent',
+          },
+          '&::-webkit-scrollbar-thumb': {
+            width: '0px',
+            backgroundColor: 'transparent',
+          },
+        }}
+      >
         {pets && pets.length ? (
           pets.map(pet => {
             return <SidebarPetElement key={pet.id} pet={pet} close={onClose} />;

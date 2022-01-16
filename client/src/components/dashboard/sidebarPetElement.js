@@ -1,4 +1,4 @@
-import { Box, Avatar, Text, Flex, Icon } from '@chakra-ui/react';
+import { Box, Avatar, Text, Flex, Icon, VStack } from '@chakra-ui/react';
 import React, { useContext } from 'react';
 import { PetsContext } from './petsContext';
 import { MdInfoOutline, MdLocalHospital, MdSchool } from 'react-icons/md';
@@ -17,13 +17,12 @@ function SidebarPetElement({ pet, close }) {
 
   function onClick() {
     setActivePet(pet);
-    setComponent(1);
-    close();
   }
+
   return (
-    <Box
+    <VStack
+      transition="1s"
       w="100%"
-      display="flex"
       rounded="lg"
       bg={isSelected ? 'gray.300' : 'gray.100'}
       p={3}
@@ -36,12 +35,12 @@ function SidebarPetElement({ pet, close }) {
         }
       }
     >
-      <Flex w="100%" height="30p">
+      <Flex w="100%" height="30p" mb={1}>
         <Avatar
           name={pet.get('Name')}
           src={pet.get('Photo').url()}
-          h={{ base: '96px', md: '64px' }}
-          w={{ base: '96px', md: '64px' }}
+          h={{ base: '80px', md: '64px' }}
+          w={{ base: '80px', md: '64px' }}
         />
         <Flex
           w="100%"
@@ -58,15 +57,66 @@ function SidebarPetElement({ pet, close }) {
           </Text>
         </Flex>
       </Flex>
-    </Box>
+      {menuItems.map(item => {
+        return (
+          <SideBarMenuItem
+            icon={item.icon}
+            name={item.name}
+            key={item.id}
+            id={item.id}
+            component={component}
+            setComponent={setComponent}
+            isSelected={isSelected}
+            close={close}
+          />
+        );
+      })}
+    </VStack>
   );
 }
 
-const sideBarMenu = ({ icon, name, id, setComponent }) => {
+const SideBarMenuItem = ({
+  icon,
+  name,
+  id,
+  component,
+  setComponent,
+  isSelected,
+  close,
+}) => {
+  const isChildSelected = id === component;
+
+  function onChildClick() {
+    setComponent(id);
+    close();
+  }
+
   return (
-    <Flex align="center" p="4" mx="4" borderRadius="lg" cursor="pointer">
+    <Flex
+      align="center"
+      h={isSelected ? 'auto' : '0px'}
+      p="4"
+      mx="4"
+      mb="2"
+      borderRadius="lg"
+      cursor="pointer"
+      w="100%"
+      display={isSelected ? 'flex' : 'none'}
+      bg={isChildSelected ? 'gray.200' : 'gray.100'}
+      border={isChildSelected ? '1px' : 'none'}
+      _hover={
+        !isChildSelected && {
+          background: 'gray.200',
+        }
+      }
+      onClick={onChildClick}
+    >
       {icon && <Icon mr="4" fontSize="16" as={icon} />}
-      {name && <Text>{name}</Text>}
+      {name && (
+        <Text fontSize={{ base: 'md', md: 'sm' }} cursor="pointer">
+          {name}
+        </Text>
+      )}
     </Flex>
   );
 };

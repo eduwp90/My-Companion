@@ -1,10 +1,4 @@
-import React, {
-  useState,
-  useMemo,
-  useEffect,
-  useContext,
-  useCallback,
-} from 'react';
+import React, { useState, useMemo, useEffect, useContext } from 'react';
 import {
   useDisclosure,
   Drawer,
@@ -19,7 +13,9 @@ import { UserContext } from '../../UserContext';
 import PetsService from '../../services/petsService';
 import RegisterPet from './dashboard-content/registerPet';
 import LoadingContent from './dashboard-content/loadingContent';
-import Overview from './dashboard-content/overview';
+import GeneralInfo from './dashboard-content/generalInfo';
+import Health from './dashboard-content/health';
+import Training from './dashboard-content/training';
 
 function Dashboard() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -41,7 +37,11 @@ function Dashboard() {
       case 0:
         return <RegisterPet />;
       case 1:
-        return <Overview />;
+        return <GeneralInfo />;
+      case 2:
+        return <Health />;
+      case 3:
+        return <Training />;
       default:
         return <RegisterPet />;
     }

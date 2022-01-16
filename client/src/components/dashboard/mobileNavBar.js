@@ -48,12 +48,7 @@ const MobileNavBar = ({ onOpen, ...rest }) => {
       />
 
       <Flex w="100%" h="100%" justifyContent="center" alignItems="center">
-        <Image
-          display="flex"
-          src="appLogo.png"
-          maxW={220}
-          alt="My Companion"
-        />
+        <Image display="flex" src="appLogo.png" maxW={200} alt="My Companion" />
       </Flex>
 
       <HStack spacing={{ base: '0', md: '6' }}>
