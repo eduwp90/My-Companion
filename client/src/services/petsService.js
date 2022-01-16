@@ -5,9 +5,10 @@ async function savePet(user, pet, photo) {
   newPet.set('Name', pet.name);
   newPet.set('Breed', pet.breed);
   newPet.set('Color', pet.color);
+  newPet.set('Gender', pet.gender);
   newPet.set('DOB', Date.parse(pet.dateOfBirth));
   newPet.set('Owner', user);
-  newPet.set('Chip ID', pet.chipId);
+  newPet.set('ChipID', pet.chipId);
 
   if (photo) {
     const parseFile = new Parse.File('petPhoto', photo);

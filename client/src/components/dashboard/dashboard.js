@@ -60,7 +60,7 @@ function Dashboard() {
     console.log('useeffect dashboard');
 
     fetchPetList();
-  }, []);
+  }, [user]);
 
   return (
     <Box minH="100vh" bg={useColorModeValue('gray.100', 'gray.900')}>

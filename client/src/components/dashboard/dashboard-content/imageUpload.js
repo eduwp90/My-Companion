@@ -5,10 +5,10 @@ function ImageUpload(props) {
   return (
     <Flex alignItems="center" justifyContent="center" flexGrow="1">
       <Image
-        borderRadius="full"
+        borderRadius="25"
         src={props.image ? URL.createObjectURL(props.image) : 'photoupload.svg'}
         alt="Upload picture"
-        boxSize="180px"
+        boxSize={{ base: '140px', md: '180px' }}
         cursor="pointer"
         _hover={{ backgroundColor: 'red.100' }}
         border="2px"

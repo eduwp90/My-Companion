@@ -10,6 +10,9 @@ import {
   Input,
   CircularProgress,
   FormLabel,
+  RadioGroup,
+  Radio,
+  HStack,
 } from '@chakra-ui/react';
 import ErrorMessage from '../../login/errorMessage';
 import Data from '../../../helpers/data';
@@ -20,6 +23,7 @@ import { UserContext } from '../../../UserContext';
 function RegisterPet() {
   const defaultState = {
     name: '',
+    gender: '',
     breed: '',
     dateOfBirth: '',
     color: '',
@@ -40,14 +44,19 @@ function RegisterPet() {
 
   const isInvalid =
     event.name === '' ||
+    event.gender === '' ||
     event.breed === '' ||
     event.dateOfBirth === '' ||
     event.color === '';
 
-  const { pets, setPets , setActivePet , setComponent} = useContext(PetsContext);
+  const { pets, setPets, setActivePet, setComponent } = useContext(PetsContext);
   const { user } = useContext(UserContext);
 
   const handleChange = e => {
+    if (e === 'Male' || e === 'Female') {
+      setEvent({ ...event, gender: e });
+      return;
+    }
     const name = e.target.id;
     let value = e.target.value;
 
@@ -78,15 +87,15 @@ function RegisterPet() {
 
   useEffect(() => {
     setActivePet(null);
-  },[]);
+  }, []);
 
   return (
-    <Stack bg="white" p="3" spacing="3" rounded="md">
+    <Stack bg="white" p="3" spacing="2" rounded="md">
       <Heading size="md" mb="2">
         Register your pet
       </Heading>
       <form action="submit" onSubmit={handleSubmit}>
-        <Stack spacing="4">
+        <Stack spacing="3">
           <FormControl>
             <FormLabel htmlFor="image">
               <ImageUpload image={photo} />
@@ -113,6 +122,20 @@ function RegisterPet() {
                 onChange={handleChange}
               />
             </InputGroup>
+          </FormControl>
+
+          <FormControl isRequired>
+            <FormLabel>Gender</FormLabel>
+            <RadioGroup
+              id="gender"
+              value={event.gender}
+              onChange={handleChange}
+            >
+              <HStack spacing="24px">
+                <Radio value="Male">Male</Radio>
+                <Radio value="Female">Female</Radio>
+              </HStack>
+            </RadioGroup>
           </FormControl>
 
           <FormControl isRequired>
