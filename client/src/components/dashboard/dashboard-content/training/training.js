@@ -1,14 +1,14 @@
 import React, { useContext } from 'react';
-import { PetsContext } from '../petsContext';
+import { PetsContext } from '../../petsContext';
 
-function Health() {
+function Training() {
   const { activePet, setActivePet, component, setComponent } =
     useContext(PetsContext);
   return (
     <div>
-      <p>HEALTH {activePet.get('Name')}</p>
+      <p>TRAINING {activePet.get('Name')}</p>
     </div>
   );
 }
 
-export default Health;
+export default Training;

@@ -13,9 +13,9 @@ import { UserContext } from '../../UserContext';
 import PetsService from '../../services/petsService';
 import RegisterPet from './dashboard-content/registerPet';
 import LoadingContent from './dashboard-content/loadingContent';
-import GeneralInfo from './dashboard-content/generalInfo';
-import Health from './dashboard-content/health';
-import Training from './dashboard-content/training';
+import GeneralInfo from './dashboard-content/general-info/generalInfo';
+import Health from './dashboard-content/health/health';
+import Training from './dashboard-content/training/training';
 
 function Dashboard() {
   const { isOpen, onOpen, onClose } = useDisclosure();
