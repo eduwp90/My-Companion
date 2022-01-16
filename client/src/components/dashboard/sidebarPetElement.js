@@ -1,6 +1,7 @@
-import { Box, Avatar, Text, Flex } from '@chakra-ui/react';
+import { Box, Avatar, Text, Flex, Icon } from '@chakra-ui/react';
 import React, { useContext } from 'react';
 import { PetsContext } from './petsContext';
+import { MdInfoOutline, MdLocalHospital, MdSchool } from 'react-icons/md';
 
 function SidebarPetElement({ pet, close }) {
   const { activePet, setActivePet, component, setComponent } =
@@ -8,12 +9,11 @@ function SidebarPetElement({ pet, close }) {
 
   const isSelected = activePet && pet.id === activePet.id;
 
-  // const menuItems = [
-  //   { name: 'Overview', icon: FiHome },
-  //   { name: 'General Info', icon: FiTrendingUp },
-  //   { name: 'Health', icon: FiCompass },
-  //   { name: 'Training', icon: FiStar },
-  // ];
+  const menuItems = [
+    { name: 'General Info', icon: MdInfoOutline, id: 1 },
+    { name: 'Health', icon: MdLocalHospital, id: 2 },
+    { name: 'Training', icon: MdSchool, id: 3 },
+  ];
 
   function onClick() {
     setActivePet(pet);
@@ -29,6 +29,7 @@ function SidebarPetElement({ pet, close }) {
       p={3}
       alignItems="center"
       onClick={onClick}
+      cursor="pointer"
       _hover={
         !isSelected && {
           background: 'gray.200',
@@ -49,10 +50,10 @@ function SidebarPetElement({ pet, close }) {
           justifyContent="center"
           ml={3}
         >
-          <Text p={1} fontWeight="bold">
+          <Text p={1} fontWeight="bold" cursor="pointer">
             {pet.get('Name')}
           </Text>
-          <Text p={1} fontSize={{ base: 'md', md: 'sm' }}>
+          <Text p={1} fontSize={{ base: 'md', md: 'sm' }} cursor="pointer">
             {pet.get('Color')} {pet.get('Breed')}
           </Text>
         </Flex>
@@ -60,5 +61,14 @@ function SidebarPetElement({ pet, close }) {
     </Box>
   );
 }
+
+const sideBarMenu = ({ icon, name, id, setComponent }) => {
+  return (
+    <Flex align="center" p="4" mx="4" borderRadius="lg" cursor="pointer">
+      {icon && <Icon mr="4" fontSize="16" as={icon} />}
+      {name && <Text>{name}</Text>}
+    </Flex>
+  );
+};
 
 export default SidebarPetElement;
