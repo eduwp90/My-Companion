@@ -28,7 +28,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
       flexDir="column"
       {...rest}
     >
-      <Flex h="20" alignItems="center" mx="3" justifyContent="space-between">
+      <Flex h="70px" alignItems="center" mx="2" justifyContent="space-between">
         <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
           Your Pets
         </Text>
@@ -37,7 +37,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
       <VStack flexGrow="1">
         {pets && pets.length ? (
           pets.map(pet => {
-            return <SidebarPetElement key={pet.id} pet={pet} />;
+            return <SidebarPetElement key={pet.id} pet={pet} close={onClose} />;
           })
         ) : (
           <Center h="100%">

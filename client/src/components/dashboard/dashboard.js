@@ -19,8 +19,6 @@ import { UserContext } from '../../UserContext';
 import PetsService from '../../services/petsService';
 import RegisterPet from './dashboard-content/registerPet';
 import LoadingContent from './dashboard-content/loadingContent';
-import useAsyncEffect from 'use-async-effect';
-import { Redirect } from 'react-router-dom';
 import Overview from './dashboard-content/overview';
 
 function Dashboard() {
@@ -56,6 +54,7 @@ function Dashboard() {
       setIsLoadingContent(false);
 
       setPets([...petsList]);
+      setActivePet(petsList[0]);
       if (petsList.length) setComponent(1);
     }
     console.log('useeffect dashboard');
