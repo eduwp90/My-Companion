@@ -24,6 +24,24 @@ async function savePet(user, pet, photo) {
   }
 }
 
+async function updatePet(pet,data) {
+  pet.set('Name', data.name);
+  pet.set('Breed', data.breed);
+  pet.set('Color', data.color);
+  pet.set('Gender', data.gender);
+  pet.set('DOB', Date.parse(data.dateOfBirth));
+  pet.set('ChipID', data.chipId);
+
+  try {
+    await pet.save();
+
+    return pet;
+  } catch (error) {
+    return error.message;
+  }
+
+}
+
 async function findPetsByUser(user) {
   const Pets = Parse.Object.extend('Pets');
   const query = new Parse.Query(Pets);
@@ -47,6 +65,8 @@ async function uploadImage(file) {
   }
 }
 
-const PetsService = { savePet, findPetsByUser, uploadImage };
+
+
+const PetsService = { savePet, findPetsByUser, uploadImage, updatePet };
 
 export default PetsService;
