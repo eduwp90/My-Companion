@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Chart from 'react-apexcharts';
-import { Flex } from '@chakra-ui/react';
 
 export class WeightChart extends Component {
   constructor(props) {
@@ -20,7 +19,7 @@ export class WeightChart extends Component {
         series: [
           {
             name: 'Weight',
-            data: props.activePet.get('Weight'),
+            data: props.activePet,
             color: '#F8938E',
           },
         ],
@@ -44,7 +43,13 @@ export class WeightChart extends Component {
           padding: '0px',
         }}
         options={this.state.options}
-        series={this.state.options.series}
+        series={[
+          {
+            name: 'Weight',
+            data: this.props.activePet,
+            color: '#F8938E',
+          },
+        ]}
         type="area"
       />
     );

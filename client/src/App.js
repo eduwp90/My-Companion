@@ -19,9 +19,7 @@ function App() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    
     user ? navigate('dashboard') : navigate('login');
-    console.log('useeffect root');
   }, [navigate, user]);
 
   return (

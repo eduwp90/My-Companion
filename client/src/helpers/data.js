@@ -96,6 +96,15 @@ const breeds = [
   'wolfhound',
 ];
 
+const treatments = [
+  'Vaccination',
+  'Deworming',
+  'Flea Control',
+  'Dental care',
+  'Periodic check',
+  'Other',
+];
+
 //FROM THE TOY PROBLEM:
 
 function giveMeTime(timeStamp) {
@@ -129,6 +138,6 @@ function giveMeTime(timeStamp) {
   }
 }
 
-const Data = { breeds, giveMeTime };
+const Data = { breeds, giveMeTime, treatments };
 
 export default Data;

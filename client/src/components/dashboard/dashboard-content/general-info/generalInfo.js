@@ -8,13 +8,10 @@ function GeneralInfo() {
   const { activePet, setActivePet, component, setComponent } =
     useContext(PetsContext);
 
-  useEffect(() => {
-    console.log('useeffect weight component');
-  }, [activePet]);
   return (
     <SimpleGrid columns={{ base: 1, md: 2 }} spacing="8px">
-      <Basic></Basic>
-      <Weight></Weight>
+      <Basic />
+      <Weight />
     </SimpleGrid>
   );
 }

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import {
   Box,
   FormControl,
@@ -54,7 +54,12 @@ function Weight() {
   }
 
   function addToArray(element) {
-    setWeightArray([...weightArray, element].sort());
+    setWeightArray(prevValue => {
+      const copy = [...prevValue];
+      copy.push(element);
+      copy.sort();
+      return copy;
+    });
   }
 
   function removeFromArray(index) {
@@ -75,6 +80,7 @@ function Weight() {
       });
       setIsLoading(false);
     } else {
+      console.log(newPet);
       setActivePet(newPet);
       setIsLoading(false);
       onClose();
@@ -176,7 +182,7 @@ function Weight() {
       </HStack>
 
       {activePet.get('Weight').length ? (
-        <WeightChart activePet={activePet} />
+        <WeightChart activePet={activePet.get('Weight')} />
       ) : (
         <NoData />
       )}

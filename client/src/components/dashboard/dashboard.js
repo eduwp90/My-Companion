@@ -14,8 +14,8 @@ import PetsService from '../../services/petsService';
 import RegisterPet from './dashboard-content/registerPet';
 import LoadingContent from './dashboard-content/loadingContent';
 import GeneralInfo from './dashboard-content/general-info/generalInfo';
-import Health from './dashboard-content/health/health';
 import Training from './dashboard-content/training/training';
+import HealthBase from './dashboard-content/health/healthBase';
 
 function Dashboard() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -39,7 +39,7 @@ function Dashboard() {
       case 1:
         return <GeneralInfo />;
       case 2:
-        return <Health />;
+        return <HealthBase />;
       case 3:
         return <Training />;
       default:
@@ -57,7 +57,6 @@ function Dashboard() {
       setActivePet(petsList[0]);
       if (petsList.length) setComponent(1);
     }
-    console.log('useeffect dashboard');
 
     fetchPetList();
   }, [user]);

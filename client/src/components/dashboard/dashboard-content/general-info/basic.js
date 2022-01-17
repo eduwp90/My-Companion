@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import {
   Box,
   Heading,
@@ -85,6 +85,14 @@ function Basic() {
     setIsLoading(false);
     toggleEdit();
   };
+
+  useEffect(() => {
+    console.log('mounted');
+    setForm(defaultFormState);
+    return () => {
+      console.log('unmounted');
+    };
+  }, [activePet]);
 
   return (
     <Box
