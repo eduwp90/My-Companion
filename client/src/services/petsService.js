@@ -9,6 +9,7 @@ async function savePet(user, pet, photo) {
   newPet.set('DOB', Date.parse(pet.dateOfBirth));
   newPet.set('Owner', user);
   newPet.set('ChipID', pet.chipId);
+  newPet.set('Weight', []);
 
   if (photo) {
     const parseFile = new Parse.File('petPhoto', photo);
@@ -24,7 +25,7 @@ async function savePet(user, pet, photo) {
   }
 }
 
-async function updatePet(pet,data) {
+async function updatePet(pet, data) {
   pet.set('Name', data.name);
   pet.set('Breed', data.breed);
   pet.set('Color', data.color);
@@ -39,7 +40,18 @@ async function updatePet(pet,data) {
   } catch (error) {
     return error.message;
   }
+}
 
+async function updateWeightArray(pet, array) {
+  pet.set('Weight', array);
+
+  try {
+    await pet.save();
+
+    return pet;
+  } catch (error) {
+    return error.message;
+  }
 }
 
 async function findPetsByUser(user) {
@@ -65,8 +77,12 @@ async function uploadImage(file) {
   }
 }
 
-
-
-const PetsService = { savePet, findPetsByUser, uploadImage, updatePet };
+const PetsService = {
+  savePet,
+  findPetsByUser,
+  uploadImage,
+  updatePet,
+  updateWeightArray,
+};
 
 export default PetsService;

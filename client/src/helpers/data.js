@@ -124,7 +124,7 @@ function giveMeTime(timeStamp) {
   else return createTimeString((diff / 315576e5).toFixed(), 'years');
 
   function createTimeString(amount, type) {
-    if (amount == '1') type = type.slice(0, -1);
+    if (amount === '1') type = type.slice(0, -1);
     return `${amount} ${type}`;
   }
 }

@@ -87,6 +87,7 @@ function RegisterPet() {
 
   useEffect(() => {
     setActivePet(null);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect, useMemo } from 'react';
+import React, { useState, useContext } from 'react';
 import {
   Box,
   Heading,
@@ -236,7 +236,7 @@ function Basic() {
           </FormControl>
 
           <FormControl>
-            <InputGroup size="sm">
+            <InputGroup size="sm" mb={1.5}>
               <InputLeftAddon children="# Chip ID" />
               <Input
                 id="chipId"
