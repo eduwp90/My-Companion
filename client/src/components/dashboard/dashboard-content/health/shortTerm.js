@@ -15,9 +15,8 @@ import moment from 'moment';
 import NoData from '../noData';
 import LongTermElement from './longTermElement';
 
-function LongTerm() {
+function ShortTerm() {
   const { activePet } = useContext(PetsContext);
-  console.log('longTerm component', activePet);
 
   // useEffect(() => {
   //   console.log('useEffect updated treatment', activePet);
@@ -45,13 +44,13 @@ function LongTerm() {
           size="md"
           fontWeight="semibold"
         >
-          Long term treatments
+          Medication
         </Heading>
       </HStack>
       <VStack p={2} divider={<StackDivider borderColor="gray.200" />}>
-        {activePet.get('LTTreatments').length ? (
+        {activePet.get('Medication').length ? (
           activePet
-            .get('LTTreatments')
+            .get('Medication')
             .filter((item, idx) => idx < 6)
             .map((e, i) => {
               return <LongTermElement key={i} treatment={e} />;
@@ -59,9 +58,9 @@ function LongTerm() {
         ) : (
           <NoData />
         )}
-        {activePet.get('LTTreatments').length > 6 && (
+        {activePet.get('Medication').length > 6 && (
           <Text w="100%" textColor="grey" textAlign="center">
-            And {activePet.get('LTTreatments').length - 6} more treatments...
+            And {activePet.get('Medication').length - 6} more mdedications...
           </Text>
         )}
       </VStack>
@@ -70,4 +69,4 @@ function LongTerm() {
   );
 }
 
-export default LongTerm;
+export default ShortTerm;

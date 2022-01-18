@@ -27,10 +27,10 @@ function Dashboard() {
 
   const { user } = useContext(UserContext);
 
-  const providerValue = useMemo(
-    () => ({ pets, setPets, activePet, setActivePet, component, setComponent }),
-    [pets, setPets, activePet, setActivePet, component, setComponent]
-  );
+  // const providerValue = useMemo(
+  //   () => ({ pets, setPets, activePet, setActivePet, component, setComponent }),
+  //   [pets, setPets, activePet, setActivePet, component, setComponent]
+  // );
 
   function renderContent(component) {
     switch (component) {
@@ -63,7 +63,16 @@ function Dashboard() {
 
   return (
     <Box minH="100vh" bg={useColorModeValue('gray.100', 'gray.900')}>
-      <PetsContext.Provider value={providerValue}>
+      <PetsContext.Provider
+        value={{
+          pets,
+          setPets,
+          activePet,
+          setActivePet,
+          component,
+          setComponent,
+        }}
+      >
         <SidebarContent
           onClose={() => onClose}
           display={{ base: 'none', md: 'flex' }}
