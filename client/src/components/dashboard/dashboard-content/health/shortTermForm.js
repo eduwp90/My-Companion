@@ -17,6 +17,7 @@ import {
   Input,
   Checkbox,
   useToast,
+  FormErrorMessage,
 } from '@chakra-ui/react';
 import Data from '../../../../helpers/data.js';
 import moment from 'moment';
@@ -25,29 +26,23 @@ import PetsService from '../../../../services/petsService';
 
 function ShortTermForm() {
   const defaultFormState = {
-    treatment: '',
+    medication: '',
     observations: '',
     date: '',
     repeatNumber: '',
-    repeatEvery: '',
+    repeatEvery: 'Hours',
   };
 
   const now = moment().format('YYYY-MM-DDThh:mm');
 
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [isPeriodic, setIsPeriodic] = useState(false);
+
   const [isLoading, setIsLoading] = useState(false);
 
   const [form, setForm] = useState(defaultFormState);
-  const { activePet, setActivePet } = useContext(PetsContext);
+  const { activePet, setActivePet, pets } = useContext(PetsContext);
 
   const toast = useToast();
-
-  function togglePeriodic() {
-    setIsPeriodic(!isPeriodic);
-    setForm({ ...form, repeatNumber: '' });
-    setForm({ ...form, repeatEvery: '', repeatNumber: '' });
-  }
 
   function handleChange(e) {
     const name = e.target.id;
@@ -59,7 +54,7 @@ function ShortTermForm() {
   const handleSubmit = async e => {
     e.preventDefault();
     setIsLoading(true);
-    const newPet = await PetsService.updateLTArray(
+    const newPet = await PetsService.updateMedicationArray(
       activePet,
       createEventsArray()
     );
@@ -81,25 +76,23 @@ function ShortTermForm() {
   };
 
   function createEventsArray() {
-    let repeatNumber = 0;
-    let iterations = 1;
+    const repeatNumber = form.repeatNumber;
+    let newDate = moment().unix();
 
-    let eventsArray = activePet.get('LTTreatments');
+    const dateLimit = moment(form.date).unix();
 
-    if (form.repeatNumber !== '') {
-      repeatNumber = form.repeatNumber;
-      iterations = 6;
-    }
+    let eventsArray = activePet.get('Medication');
 
-    for (let i = 0; i < iterations; i++) {
-      let newDate = moment(form.date)
-        .add(i * repeatNumber, form.repeatEvery.toLowerCase())
+    while (newDate < dateLimit) {
+      newDate = moment
+        .unix(newDate)
+        .add(repeatNumber, form.repeatEvery.toLowerCase())
         .unix();
 
       let newEvent = [
         newDate,
         {
-          treatment: form.treatment,
+          medication: form.medication,
           observations: form.observations,
           reminder: false,
         },
@@ -120,23 +113,23 @@ function ShortTermForm() {
         <ModalOverlay />
         <form>
           <ModalContent m={1}>
-            <ModalHeader>Add new treatment</ModalHeader>
+            <ModalHeader>Add new medication</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
               <VStack w="100%">
                 <FormControl isRequired size="sm">
-                  <FormLabel htmlFor="breed">Treatment</FormLabel>
+                  <FormLabel htmlFor="breed">Medication</FormLabel>
                   <Select
-                    id="treatment"
-                    placeholder="Select treatment"
-                    value={form.treatment}
+                    id="medication"
+                    placeholder="Select medication"
+                    value={form.medication}
                     onChange={handleChange}
                   >
-                    {Data.treatments &&
-                      Data.treatments.map(treatment => (
-                        <option key={treatment}>
-                          {treatment.charAt(0).toUpperCase() +
-                            treatment.slice(1)}
+                    {Data.medications &&
+                      Data.medications.map(medication => (
+                        <option key={medication}>
+                          {medication.charAt(0).toUpperCase() +
+                            medication.slice(1)}
                         </option>
                       ))}
                   </Select>
@@ -153,8 +146,33 @@ function ShortTermForm() {
                   />
                 </FormControl>
 
+                <FormControl isRequired size="sm">
+                  <FormLabel htmlFor="breed">Repeat every</FormLabel>
+                  <Flex w="100%" alignItems="center">
+                    <Input
+                      id="repeatNumber"
+                      type="number"
+                      placeholder="Number"
+                      value={form.repeatNumber}
+                      onChange={handleChange}
+                      me={2}
+                      min="1"
+                      max="20"
+                    />
+                    <Select
+                      id="repeatEvery"
+                      // placeholder="Repeat every"
+                      value={form.repeatEvery}
+                      onChange={handleChange}
+                    >
+                      <option>Hours</option>
+                      <option>Days</option>
+                    </Select>
+                  </Flex>
+                </FormControl>
+
                 <FormControl isRequired>
-                  <FormLabel htmlFor="date">Date</FormLabel>
+                  <FormLabel htmlFor="date">Until</FormLabel>
                   <Input
                     id="date"
                     type="datetime-local"
@@ -164,44 +182,6 @@ function ShortTermForm() {
                     min={now}
                   />
                 </FormControl>
-
-                <Flex w="100%" alignItems="center" mt={3}>
-                  <Checkbox
-                    colorScheme="red"
-                    isChecked={isPeriodic}
-                    onChange={togglePeriodic}
-                  >
-                    Periodic
-                  </Checkbox>
-                </Flex>
-
-                {isPeriodic && (
-                  <FormControl isRequired size="sm">
-                    <FormLabel htmlFor="breed">Repeat every</FormLabel>
-                    <Flex w="100%" alignItems="center">
-                      <Input
-                        id="repeatNumber"
-                        type="number"
-                        placeholder="Number"
-                        value={form.repeatNumber}
-                        onChange={handleChange}
-                        me={2}
-                        min="1"
-                        max="20"
-                      />
-                      <Select
-                        id="repeatEvery"
-                        placeholder="Repeat every"
-                        value={form.repeatEvery}
-                        onChange={handleChange}
-                      >
-                        <option>Days</option>
-                        <option>Weeks</option>
-                        <option>Months</option>
-                      </Select>
-                    </Flex>
-                  </FormControl>
-                )}
               </VStack>
             </ModalBody>
             <ModalFooter>

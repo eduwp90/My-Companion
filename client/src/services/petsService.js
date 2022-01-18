@@ -67,6 +67,18 @@ async function updateLTArray(pet, array) {
   }
 }
 
+async function updateMedicationArray(pet, array) {
+  pet.set('Medication', array);
+
+  try {
+    await pet.save();
+
+    return pet;
+  } catch (error) {
+    return error.message;
+  }
+}
+
 async function findPetsByUser(user) {
   const Pets = Parse.Object.extend('Pets');
   const query = new Parse.Query(Pets);
@@ -97,6 +109,7 @@ const PetsService = {
   updatePet,
   updateWeightArray,
   updateLTArray,
+  updateMedicationArray,
 };
 
 export default PetsService;

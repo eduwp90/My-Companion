@@ -98,13 +98,20 @@ const breeds = [
 
 const treatments = [
   'Vaccination',
-  'Deworming',
+  'Parasite/Deworming',
   'Flea Control',
   'Dental care',
   'Periodic check',
   'Other',
 ];
 
+const medications = [
+  'Antibiotic',
+  'Antifungal',
+  'Anti-inflammatory',
+  'Gastro-Intestinal',
+  'Other',
+];
 //FROM THE TOY PROBLEM:
 
 function giveMeTime(timeStamp) {
@@ -138,6 +145,6 @@ function giveMeTime(timeStamp) {
   }
 }
 
-const Data = { breeds, giveMeTime, treatments };
+const Data = { breeds, giveMeTime, treatments, medications };
 
 export default Data;

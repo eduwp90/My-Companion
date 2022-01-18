@@ -29,7 +29,7 @@ function LongTermForm() {
     observations: '',
     date: '',
     repeatNumber: '',
-    repeatEvery: '',
+    repeatEvery: 'Days',
   };
 
   const now = moment().format('YYYY-MM-DDThh:mm');
@@ -46,7 +46,6 @@ function LongTermForm() {
   function togglePeriodic() {
     setIsPeriodic(!isPeriodic);
     setForm({ ...form, repeatNumber: '' });
-    setForm({ ...form, repeatEvery: '', repeatNumber: '' });
   }
 
   function handleChange(e) {
@@ -191,7 +190,6 @@ function LongTermForm() {
                       />
                       <Select
                         id="repeatEvery"
-                        placeholder="Repeat every"
                         value={form.repeatEvery}
                         onChange={handleChange}
                       >

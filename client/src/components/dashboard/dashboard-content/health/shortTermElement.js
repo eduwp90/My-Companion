@@ -16,25 +16,27 @@ import {
   Checkbox,
 } from '@chakra-ui/react';
 import moment from 'moment';
-import { RiSyringeLine, RiBugLine, RiCalendarLine } from 'react-icons/ri';
-import { GiEarthWorm, GiTooth } from 'react-icons/gi';
+import { RiRestaurantLine } from 'react-icons/ri';
+import {
+  GiPill,
+  GiMolecule,
+  GiGooeyImpact,
+} from 'react-icons/gi';
 import { BiDotsHorizontalRounded } from 'react-icons/bi';
 
-function LongTermElement({ treatment }) {
+function ShortTermElement({ treatment }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   function selectIcon() {
-    switch (treatment[1].treatment) {
-      case 'Vaccination':
-        return <RiSyringeLine />;
-      case 'Parasite/Deworming':
-        return <GiEarthWorm />;
-      case 'Flea Control':
-        return <RiBugLine />;
-      case 'Dental care':
-        return <GiTooth />;
-      case 'Periodic check':
-        return <RiCalendarLine />;
+    switch (treatment[1].medication) {
+      case 'Antibiotic':
+        return <GiPill />;
+      case 'Antifungal':
+        return <GiMolecule />;
+      case 'Anti-inflammatory':
+        return <GiGooeyImpact />;
+      case 'Gastro-Intestinal':
+        return <RiRestaurantLine />;
       case 'Other':
         return <BiDotsHorizontalRounded />;
       default:
@@ -55,7 +57,7 @@ function LongTermElement({ treatment }) {
           <ModalHeader display="flex" w="100%" alignItems="center">
             {selectIcon()}
             <Heading size="md" ml={3} p={0}>
-              {treatment[1].treatment}
+              {treatment[1].medication}
             </Heading>
           </ModalHeader>
           <ModalBody>
@@ -91,7 +93,7 @@ function LongTermElement({ treatment }) {
 
       {selectIcon()}
       <Text flexGrow="1" pl={3}>
-        {treatment[1].treatment}
+        {treatment[1].medication}
       </Text>
       <Text maxW="30%" textColor="grey">
         {moment.unix(treatment[0]).fromNow()}
@@ -100,4 +102,4 @@ function LongTermElement({ treatment }) {
   );
 }
 
-export default LongTermElement;
+export default ShortTermElement;
