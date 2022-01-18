@@ -15,16 +15,14 @@ import {
   FormLabel,
   Select,
   Input,
-  Checkbox,
   useToast,
-  FormErrorMessage,
 } from '@chakra-ui/react';
 import Data from '../../../../helpers/data.js';
 import moment from 'moment';
 import { PetsContext } from '../../petsContext';
 import PetsService from '../../../../services/petsService';
 
-function ShortTermForm() {
+function ShortTermForm({ forceUpdate }) {
   const defaultFormState = {
     medication: '',
     observations: '',
@@ -40,7 +38,7 @@ function ShortTermForm() {
   const [isLoading, setIsLoading] = useState(false);
 
   const [form, setForm] = useState(defaultFormState);
-  const { activePet, setActivePet, pets } = useContext(PetsContext);
+  const { activePet, setActivePet } = useContext(PetsContext);
 
   const toast = useToast();
 
@@ -71,6 +69,7 @@ function ShortTermForm() {
     } else {
       setActivePet(newPet);
       setIsLoading(false);
+      forceUpdate();
       onClose();
     }
   };

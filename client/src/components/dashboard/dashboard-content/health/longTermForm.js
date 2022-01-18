@@ -23,7 +23,7 @@ import moment from 'moment';
 import { PetsContext } from '../../petsContext';
 import PetsService from '../../../../services/petsService';
 
-function LongTermForm() {
+function LongTermForm({ forceUpdate }) {
   const defaultFormState = {
     treatment: '',
     observations: '',
@@ -74,7 +74,9 @@ function LongTermForm() {
       setIsLoading(false);
     } else {
       setActivePet(newPet);
+
       setIsLoading(false);
+      forceUpdate();
       onClose();
     }
   };

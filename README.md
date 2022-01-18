@@ -25,3 +25,7 @@ EMAIL_PASSWORD=GMAIL_PASSWORD
 - Create a copy of the `.env` in `./client` and move it to `./server`
 - In `./server` start the backend with `node index.js`
 - In `./client` start the website with `npm start`
+
+## Demo youtube video:
+
+[Video](https://youtu.be/nAHyZd0Ej88)

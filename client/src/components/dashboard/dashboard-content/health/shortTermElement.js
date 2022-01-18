@@ -48,7 +48,7 @@ function ShortTermElement({ treatment }) {
   }
 
   function handleChange(e) {
-    setReminder(e.target.checked);
+    setReminder(!reminder);
     if (!reminder) {
       saveReminder();
     }
@@ -101,7 +101,7 @@ function ShortTermElement({ treatment }) {
                 value={reminder}
                 onChange={handleChange}
               >
-                Email reminder
+                Remind me 1 hour before (Email)
               </Checkbox>
             </VStack>
           </ModalBody>

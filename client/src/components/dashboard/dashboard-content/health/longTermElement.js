@@ -50,8 +50,9 @@ function LongTermElement({ treatment }) {
   }
 
   function handleChange(e) {
-    setReminder(e.target.checked);
+    setReminder(!reminder);
     if (!reminder) {
+      console.log('checked');
       saveReminder();
     }
   }
@@ -103,7 +104,7 @@ function LongTermElement({ treatment }) {
                 value={reminder}
                 onChange={handleChange}
               >
-                Email reminder
+                Remind me 1 hour before (Email)
               </Checkbox>
             </VStack>
           </ModalBody>
@@ -120,7 +121,7 @@ function LongTermElement({ treatment }) {
         {treatment[1].treatment}
       </Text>
       <Text maxW="30%" textColor="grey">
-        {moment.unix(treatment[0]).fromNow()}
+        {moment.unix(treatment[0]).utc().fromNow()}
       </Text>
     </HStack>
   );

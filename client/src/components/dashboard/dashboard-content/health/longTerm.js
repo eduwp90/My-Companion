@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 import { PetsContext } from '../../petsContext';
 import {
   Box,
@@ -6,26 +6,22 @@ import {
   HStack,
   Heading,
   Text,
-  IconButton,
   VStack,
 } from '@chakra-ui/react';
-import { CheckIcon, CloseIcon, EditIcon } from '@chakra-ui/icons';
 import LongTermForm from './longTermForm';
-import moment from 'moment';
 import NoData from '../noData';
 import LongTermElement from './longTermElement';
 
+function useForceUpdate() {
+  // eslint-disable-next-line no-unused-vars
+  const [value, setValue] = useState(0); // integer state
+  return () => setValue(value => value + 1); // update the state to force render
+}
+
 function LongTerm() {
   const { activePet } = useContext(PetsContext);
-  console.log('longTerm component', activePet);
 
-  // useEffect(() => {
-  //   console.log('useEffect updated treatment', activePet);
-
-  //   return () => {
-  //     console.log('useEffect UNMOUNT treatment', activePet);
-  //   };
-  // }, [activePet]);
+  const forceUpdate = useForceUpdate();
 
   return (
     <Box
@@ -65,7 +61,7 @@ function LongTerm() {
           </Text>
         )}
       </VStack>
-      <LongTermForm />
+      <LongTermForm forceUpdate={forceUpdate} />
     </Box>
   );
 }

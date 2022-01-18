@@ -4,17 +4,22 @@ require('dotenv').config({ path: '../.env' });
 
 agenda.define('sendEmailReminder', (job) => {
   const email = job.attrs.data.email;
-  console.log('🚀 ~ file: jobs.js ~ line 10 ~ agenda.define ~ email', email);
   const petName = job.attrs.data.petName;
-  console.log(
-    '🚀 ~ file: jobs.js ~ line 12 ~ agenda.define ~ petName',
-    petName
-  );
   const reminderName = job.attrs.data.reminderName;
-  console.log(
-    '🚀 ~ file: jobs.js ~ line 14 ~ agenda.define ~ reminderName',
-    reminderName
-  );
+  const date = moment.unix(job.attrs.data.date).format('LLL');
+
+  const mailData = {
+    from: process.env.EMAIL, // sender address
+    to: email, // list of receivers
+    subject: `Reminder for ${petName}'s medication/treatment`,
+    text: `Reminder for your pet ${petName}:
+    Your reminder: ${reminderName} at ${date}`,
+  };
+
+  transporter.sendMail(mailData, function(err, info) {
+    if (err) console.log(err);
+    else console.log(info);
+  });
 });
 
 exports.createReminder = async (body) => {
@@ -26,22 +31,8 @@ exports.createReminder = async (body) => {
       'data.reminderName': body.reminderName,
       'data.date': body.date,
     })
-    .schedule(moment.unix(body.date))
+    .schedule(moment.unix(body.date).subtract(1, 'hours'))
     .save();
-  sendEmail();
+
   return;
 };
-
-function sendEmail() {
-  const mailData = {
-    from: process.env.EMAIL, // sender address
-    to: 'eduwp90@gmail.com', // list of receivers
-    subject: 'Sending Email using Node.js',
-    text: 'That was easy!',
-  };
-
-  transporter.sendMail(mailData, function(err, info) {
-    if (err) console.log(err);
-    else console.log(info);
-  });
-}
