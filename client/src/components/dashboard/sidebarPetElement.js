@@ -12,7 +12,7 @@ function SidebarPetElement({ pet, close }) {
   const menuItems = [
     { name: 'General Info', icon: MdInfoOutline, id: 1 },
     { name: 'Health', icon: MdLocalHospital, id: 2 },
-    { name: 'Training', icon: MdSchool, id: 3 },
+    // { name: 'Training', icon: MdSchool, id: 3 },
   ];
 
   function onClick() {

@@ -10,6 +10,7 @@ async function savePet(user, pet, photo) {
   newPet.set('Owner', user);
   newPet.set('ChipID', pet.chipId);
   newPet.set('Weight', []);
+  newPet.set('LTTreatments', []);
 
   if (photo) {
     const parseFile = new Parse.File('petPhoto', photo);
@@ -54,6 +55,18 @@ async function updateWeightArray(pet, array) {
   }
 }
 
+async function updateLTArray(pet, array) {
+  pet.set('LTTreatments', array);
+
+  try {
+    await pet.save();
+
+    return pet;
+  } catch (error) {
+    return error.message;
+  }
+}
+
 async function findPetsByUser(user) {
   const Pets = Parse.Object.extend('Pets');
   const query = new Parse.Query(Pets);
@@ -83,6 +96,7 @@ const PetsService = {
   uploadImage,
   updatePet,
   updateWeightArray,
+  updateLTArray,
 };
 
 export default PetsService;

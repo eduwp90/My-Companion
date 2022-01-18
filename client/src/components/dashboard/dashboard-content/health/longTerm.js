@@ -1,18 +1,31 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { PetsContext } from '../../petsContext';
-import { Box, Flex, HStack, Button, Text, IconButton } from '@chakra-ui/react';
+import {
+  Box,
+  StackDivider,
+  HStack,
+  Heading,
+  Text,
+  IconButton,
+  VStack,
+} from '@chakra-ui/react';
 import { CheckIcon, CloseIcon, EditIcon } from '@chakra-ui/icons';
 import LongTermForm from './longTermForm';
+import moment from 'moment';
+import NoData from '../noData';
+import LongTermElement from './longTermElement';
 
 function LongTerm() {
-  const { activePet, setActivePet, component, setComponent } =
+  const { activePet } =
     useContext(PetsContext);
 
-  const [editable, setEditable] = useState(false);
+  // useEffect(() => {
+  //   console.log('useEffect updated treatment', activePet);
 
-  function toggleEdit() {
-    setEditable(!editable);
-  }
+  //   return () => {
+  //     console.log('useEffect UNMOUNT treatment', activePet);
+  //   };
+  // }, [activePet]);
 
   return (
     <Box
@@ -24,18 +37,34 @@ function LongTerm() {
       flexDirection="column"
       w="100%"
     >
-      <HStack h={10} justifyContent="end" alignItems="center" mb={2}>
-        <Text w="100%" textAlign="start" ml={2} fontWeight="bold">
+      <HStack justifyContent="end" alignItems="center" my={2}>
+        <Heading
+          w="100%"
+          textAlign="start"
+          ml={2}
+          size="md"
+          fontWeight="semibold"
+        >
           Long term treatments
-        </Text>
-        <IconButton
-          size="sm"
-          variant="outline"
-          icon={<EditIcon />}
-          aria-label="Edit data"
-          //onClick={onOpen}
-        />
+        </Heading>
       </HStack>
+      <VStack p={2} divider={<StackDivider borderColor="gray.200" />}>
+        {activePet.get('LTTreatments').length ? (
+          activePet
+            .get('LTTreatments')
+            .filter((item, idx) => idx < 6)
+            .map((e, i) => {
+              return <LongTermElement key={i} treatment={e} />;
+            })
+        ) : (
+          <NoData />
+        )}
+        {activePet.get('LTTreatments').length > 6 && (
+          <Text w="100%" textColor="grey" textAlign="center">
+            And {activePet.get('LTTreatments').length - 6} more treatments...
+          </Text>
+        )}
+      </VStack>
       <LongTermForm />
     </Box>
   );

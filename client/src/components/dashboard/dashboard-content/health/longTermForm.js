@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import {
   Button,
   Flex,
@@ -16,8 +16,12 @@ import {
   Select,
   Input,
   Checkbox,
+  useToast,
 } from '@chakra-ui/react';
 import Data from '../../../../helpers/data.js';
+import moment from 'moment';
+import { PetsContext } from '../../petsContext';
+import PetsService from '../../../../services/petsService';
 
 function LongTermForm() {
   const defaultFormState = {
@@ -28,9 +32,16 @@ function LongTermForm() {
     repeatEvery: '',
   };
 
+  const now = moment().format('YYYY-MM-DDThh:mm');
+
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [form, setForm] = useState(defaultFormState);
   const [isPeriodic, setIsPeriodic] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const [form, setForm] = useState(defaultFormState);
+  const { activePet, setActivePet } = useContext(PetsContext);
+
+  const toast = useToast();
 
   function togglePeriodic() {
     setIsPeriodic(!isPeriodic);
@@ -40,27 +51,77 @@ function LongTermForm() {
 
   function handleChange(e) {
     const name = e.target.id;
-    console.log(name);
     let value = e.target.value;
-    console.log(value);
 
     setForm({ ...form, [name]: value });
   }
 
-  function handleSubmit(e) {
+  const handleSubmit = async e => {
     e.preventDefault();
+    setIsLoading(true);
+    const newPet = await PetsService.updateLTArray(
+      activePet,
+      createEventsArray()
+    );
+
+    if (typeof newPet === 'string') {
+      toast({
+        title: 'Error updating data',
+        description: newPet,
+        status: 'error',
+        duration: 5000,
+        isClosable: true,
+      });
+      setIsLoading(false);
+    } else {
+      setActivePet(newPet);
+      setIsLoading(false);
+      onClose();
+    }
+  };
+
+  function createEventsArray() {
+    let repeatNumber = 0;
+    let iterations = 1;
+
+    let eventsArray = activePet.get('LTTreatments');
+
+    if (form.repeatNumber !== '') {
+      repeatNumber = form.repeatNumber;
+      iterations = 6;
+    }
+
+    for (let i = 0; i < iterations; i++) {
+      let newDate = moment(form.date)
+        .add(i * repeatNumber, form.repeatEvery.toLowerCase())
+        .unix();
+
+      let newEvent = [
+        newDate,
+        {
+          treatment: form.treatment,
+          observations: form.observations,
+          reminder: false,
+        },
+      ];
+
+      eventsArray.push(newEvent);
+    }
+
+    return eventsArray.sort();
   }
+
   return (
-    <Flex w="100%" justifyContent="end" alignItems="center">
+    <Flex w="100%" justifyContent="end" alignItems="center" p={1.5}>
       <Button colorScheme="red" size="sm" onClick={onOpen}>
         + Add New
       </Button>
       <Modal isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay />
-        <ModalContent m={1}>
-          <ModalHeader>Add new treatment</ModalHeader>
-          <ModalCloseButton />
-          <form action="submit" onSubmit={handleSubmit}>
+        <form>
+          <ModalContent m={1}>
+            <ModalHeader>Add new treatment</ModalHeader>
+            <ModalCloseButton />
             <ModalBody>
               <VStack w="100%">
                 <FormControl isRequired size="sm">
@@ -100,13 +161,14 @@ function LongTermForm() {
                     placeholder="Select date"
                     value={form.date}
                     onChange={handleChange}
+                    min={now}
                   />
                 </FormControl>
 
-                <Flex w="100%" alignItems="center">
+                <Flex w="100%" alignItems="center" mt={3}>
                   <Checkbox
                     colorScheme="red"
-                    value={isPeriodic}
+                    isChecked={isPeriodic}
                     onChange={togglePeriodic}
                   >
                     Periodic
@@ -124,6 +186,8 @@ function LongTermForm() {
                         value={form.repeatNumber}
                         onChange={handleChange}
                         me={2}
+                        min="1"
+                        max="20"
                       />
                       <Select
                         id="repeatEvery"
@@ -149,10 +213,17 @@ function LongTermForm() {
               >
                 Close
               </Button>
-              <Button colorScheme="red">Save</Button>
+              <Button
+                type="submit"
+                colorScheme="red"
+                onClick={handleSubmit}
+                isLoading={isLoading}
+              >
+                Save
+              </Button>
             </ModalFooter>
-          </form>
-        </ModalContent>
+          </ModalContent>
+        </form>
       </Modal>
     </Flex>
   );

@@ -87,10 +87,10 @@ function Basic() {
   };
 
   useEffect(() => {
-    console.log('mounted');
+
     setForm(defaultFormState);
     return () => {
-      console.log('unmounted');
+      
     };
   }, [activePet]);
 
