@@ -6,8 +6,8 @@ import ShortTerm from './shortTerm';
 function HealthBase() {
   return (
     <SimpleGrid columns={{ base: 1, md: 2 }} spacing="8px">
-      <LongTerm />
       <ShortTerm />
+      <LongTerm />
     </SimpleGrid>
   );
 }

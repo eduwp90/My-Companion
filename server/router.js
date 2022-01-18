@@ -1,8 +1,8 @@
 const router = require('express').Router();
-// const controller = require('./controllers/controller');
+const controller = require('./controllers/controller');
 
 // router.get('/', controller.doSomething1);
-// router.post('/', controller.doSomething2);
+router.post('/reminders', controller.saveRemainder);
 
 // //handle 404
 // // router.all('*', function (req,res) {

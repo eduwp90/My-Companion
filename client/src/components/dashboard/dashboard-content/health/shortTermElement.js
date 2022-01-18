@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
 import {
   HStack,
   Text,
@@ -17,15 +17,18 @@ import {
 } from '@chakra-ui/react';
 import moment from 'moment';
 import { RiRestaurantLine } from 'react-icons/ri';
-import {
-  GiPill,
-  GiMolecule,
-  GiGooeyImpact,
-} from 'react-icons/gi';
+import { GiPill, GiMolecule, GiGooeyImpact } from 'react-icons/gi';
 import { BiDotsHorizontalRounded } from 'react-icons/bi';
+import { PetsContext } from '../../petsContext';
+import { UserContext } from '../../../../UserContext';
+import ApiService from '../../../../services/apiService';
 
 function ShortTermElement({ treatment }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { activePet } = useContext(PetsContext);
+  const { user } = useContext(UserContext);
+
+  const [reminder, setReminder] = useState(treatment[1].reminder);
 
   function selectIcon() {
     switch (treatment[1].medication) {
@@ -42,6 +45,24 @@ function ShortTermElement({ treatment }) {
       default:
         return <BiDotsHorizontalRounded />;
     }
+  }
+
+  function handleChange(e) {
+    setReminder(e.target.checked);
+    if (!reminder) {
+      saveReminder();
+    }
+  }
+
+  async function saveReminder() {
+    const reminderData = {
+      email: user.get('email'),
+      petName: activePet.get('Name'),
+      reminderName: treatment[1].medication,
+      date: treatment[0],
+    };
+
+    console.log(await ApiService.addReminder(reminderData));
   }
 
   return (
@@ -77,7 +98,8 @@ function ShortTermElement({ treatment }) {
                 w="100%"
                 size="md"
                 colorScheme="red"
-                isChecked={treatment[1].reminder}
+                value={reminder}
+                onChange={handleChange}
               >
                 Email reminder
               </Checkbox>
