@@ -1,5 +1,6 @@
-const { agenda } = require('../config/config');
-var moment = require('moment');
+const { agenda, transporter } = require('../config/config');
+const moment = require('moment');
+require('dotenv').config({ path: '../.env' });
 
 agenda.define('sendEmailReminder', (job) => {
   const email = job.attrs.data.email;
@@ -27,5 +28,20 @@ exports.createReminder = async (body) => {
     })
     .schedule(moment.unix(body.date))
     .save();
+  sendEmail();
   return;
 };
+
+function sendEmail() {
+  const mailData = {
+    from: process.env.EMAIL, // sender address
+    to: 'eduwp90@gmail.com', // list of receivers
+    subject: 'Sending Email using Node.js',
+    text: 'That was easy!',
+  };
+
+  transporter.sendMail(mailData, function(err, info) {
+    if (err) console.log(err);
+    else console.log(info);
+  });
+}
