@@ -7,6 +7,7 @@ function ImageUpload(props) {
       <Image
         borderRadius="25"
         src={props.image ? URL.createObjectURL(props.image) : 'photoupload.svg'}
+        fallbackSrc='https://via.placeholder.com/150'
         alt="Upload picture"
         boxSize={{ base: '140px', md: '180px' }}
         cursor="pointer"
