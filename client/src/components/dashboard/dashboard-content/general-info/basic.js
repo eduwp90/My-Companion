@@ -108,7 +108,7 @@ function Basic() {
         <Image
           h={'300px'}
           w={'full'}
-          src={activePet.get('Photo').url()}
+          src={activePet.get('Photo') && activePet.get('Photo').url? activePet.get('Photo').url(): 'https://via.placeholder.com/150'}
           objectFit={'cover'}
           roundedTop={'md'}
         />

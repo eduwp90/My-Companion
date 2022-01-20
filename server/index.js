@@ -21,11 +21,11 @@ const serverUrl = process.env.REACT_APP_SERVER_URL;
 
 app.use(cors());
 app.use(express.json());
-app.use(
-  helmet({
-    crossOriginResourcePolicy: false,
-  })
-);
+// app.use(
+//   helmet({
+//     crossOriginResourcePolicy: false,
+//   })
+// );
 
 app.use('/agendash', removeCSP, Agendash(agenda));
 
