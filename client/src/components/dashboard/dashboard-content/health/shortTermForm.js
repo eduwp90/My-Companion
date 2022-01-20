@@ -96,8 +96,11 @@ function ShortTermForm({ forceUpdate }) {
           reminder: false,
         },
       ];
-
-      eventsArray.push(newEvent);
+      if (eventsArray) {
+        eventsArray.push(newEvent);
+      } else {
+        eventsArray = [newEvent];
+      }
     }
 
     return eventsArray.sort();
