@@ -45,7 +45,7 @@ function ShortTerm() {
         </Heading>
       </HStack>
       <VStack p={2} divider={<StackDivider borderColor="gray.200" />}>
-        {activePet.get('Medication').length ? (
+        {activePet.get('Medication') && activePet.get('Medication').length ? (
           activePet
             .get('Medication')
             .filter((item, idx) => idx < 6)
@@ -55,7 +55,7 @@ function ShortTerm() {
         ) : (
           <NoData />
         )}
-        {activePet.get('Medication').length > 6 && (
+        {activePet.get('Medication') && activePet.get('Medication').length > 6 && (
           <Text w="100%" textColor="grey" textAlign="center">
             And {activePet.get('Medication').length - 6} more medications...
           </Text>
