@@ -38,7 +38,7 @@ function SidebarPetElement({ pet, close }) {
       <Flex w="100%" height="30p" mb={1}>
         <Avatar
           name={pet.get('Name')}
-          src={pet.get('Photo') && pet.get('Photo').url? pet.get('Photo').url() : 'https://bit.ly/broken-link'}
+          src={pet.get('Photo') && pet.get('Photo').url && pet.get('Photo').url() }
           h={{ base: '80px', md: '64px' }}
           w={{ base: '80px', md: '64px' }}
         />

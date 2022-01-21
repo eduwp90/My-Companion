@@ -6,8 +6,7 @@ function ImageUpload(props) {
     <Flex alignItems="center" justifyContent="center" flexGrow="1">
       <Image
         borderRadius="25"
-        src={props.image ? URL.createObjectURL(props.image) : 'photoupload.svg'}
-        fallbackSrc='https://via.placeholder.com/150'
+        src={props.image && URL.createObjectURL(props.image)}
         alt="Upload picture"
         boxSize={{ base: '140px', md: '180px' }}
         cursor="pointer"
