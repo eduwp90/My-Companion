@@ -2,26 +2,14 @@ import React, { useState, useContext } from 'react';
 import {
   Button,
   Flex,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
   useDisclosure,
-  VStack,
-  FormControl,
-  FormLabel,
-  Select,
-  Input,
-  Checkbox,
   useToast,
 } from '@chakra-ui/react';
 import Data from '../../../../helpers/data.js';
 import moment from 'moment';
 import { PetsContext } from '../../petsContext';
 import PetsService from '../../../../services/petsService';
+import FormModalComponent from '../components/formModalComponent.js';
 
 function LongTermForm({ forceUpdate }) {
   const defaultFormState = {
@@ -117,114 +105,21 @@ function LongTermForm({ forceUpdate }) {
       <Button colorScheme="red" size="sm" onClick={onOpen}>
         + Add New
       </Button>
-      <Modal isOpen={isOpen} onClose={onClose} isCentered>
-        <ModalOverlay />
-        <form>
-          <ModalContent m={1}>
-            <ModalHeader>Add new treatment</ModalHeader>
-            <ModalCloseButton />
-            <ModalBody>
-              <VStack w="100%">
-                <FormControl isRequired size="sm">
-                  <FormLabel htmlFor="breed">Treatment</FormLabel>
-                  <Select
-                    id="treatment"
-                    placeholder="Select treatment"
-                    value={form.treatment}
-                    onChange={handleChange}
-                  >
-                    {Data.treatments &&
-                      Data.treatments.map(treatment => (
-                        <option key={treatment}>
-                          {treatment.charAt(0).toUpperCase() +
-                            treatment.slice(1)}
-                        </option>
-                      ))}
-                  </Select>
-                </FormControl>
-
-                <FormControl>
-                  <FormLabel htmlFor="observations">Observations</FormLabel>
-                  <Input
-                    id="observations"
-                    type="text"
-                    placeholder="Enter observations"
-                    value={form.observations}
-                    onChange={handleChange}
-                  />
-                </FormControl>
-
-                <FormControl isRequired>
-                  <FormLabel htmlFor="date">Date</FormLabel>
-                  <Input
-                    id="date"
-                    type="datetime-local"
-                    placeholder="Select date"
-                    value={form.date}
-                    onChange={handleChange}
-                    min={now}
-                  />
-                </FormControl>
-
-                <Flex w="100%" alignItems="center" mt={3}>
-                  <Checkbox
-                    colorScheme="red"
-                    isChecked={isPeriodic}
-                    onChange={togglePeriodic}
-                  >
-                    Periodic
-                  </Checkbox>
-                </Flex>
-
-                {isPeriodic && (
-                  <FormControl isRequired size="sm">
-                    <FormLabel htmlFor="breed">Repeat every</FormLabel>
-                    <Flex w="100%" alignItems="center">
-                      <Input
-                        id="repeatNumber"
-                        type="number"
-                        placeholder="Number"
-                        value={form.repeatNumber}
-                        onChange={handleChange}
-                        me={2}
-                        min="1"
-                        max="20"
-                      />
-                      <Select
-                        id="repeatEvery"
-                        value={form.repeatEvery}
-                        onChange={handleChange}
-                      >
-                        <option>Days</option>
-                        <option>Weeks</option>
-                        <option>Months</option>
-                      </Select>
-                    </Flex>
-                  </FormControl>
-                )}
-              </VStack>
-            </ModalBody>
-            <ModalFooter>
-              <Button
-                variant="outline"
-                colorScheme="blue"
-                mr={3}
-                onClick={onClose}
-              >
-                Close
-              </Button>
-              <Button
-                type="submit"
-                colorScheme="red"
-                onClick={handleSubmit}
-                isLoading={isLoading}
-              >
-                Save
-              </Button>
-            </ModalFooter>
-          </ModalContent>
-        </form>
-      </Modal>
+      <FormModalComponent 
+        form={form}
+        purpose={'Treatment'}
+        handleChange={handleChange}
+        dataArray={Data.treatments}
+        dateLabel={'Date'}
+        isLongTerm={true}
+        now={now}
+        onClose={onClose}
+        isPeriodic={isPeriodic}
+        togglePeriodic={togglePeriodic}
+        isLoading={isLoading}
+        handleSubmit={handleSubmit}
+        isOpen={isOpen}
+      />
     </Flex>
   );
 }
