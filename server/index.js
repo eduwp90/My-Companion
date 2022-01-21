@@ -1,50 +1,50 @@
-const express = require('express');
-const app = express();
-const cors = require('cors');
-const helmet = require('helmet');
-const Agendash = require('agendash');
-require('dotenv').config();
+// const express = require('express');
+// const app = express();
+// const cors = require('cors');
+// const helmet = require('helmet');
+// const Agendash = require('agendash');
+// require('dotenv').config();
 
-const router = require('./router.js');
-const {
-  agenda,
-  api,
-  dashboard,
-  removeCSP,
-  ParseInit,
-} = require('./config/config.js');
+// const router = require('./router.js');
+// const {
+//   agenda,
+//   api,
+//   dashboard,
+//   removeCSP,
+//   ParseInit,
+// } = require('./config/config.js');
 
-ParseInit();
+// ParseInit();
 
-const PORT = process.env.PORT || 1337;
-const serverUrl = process.env.REACT_APP_SERVER_URL;
+// const PORT = process.env.PORT || 1337;
+// const serverUrl = process.env.REACT_APP_SERVER_URL || ;
 
-app.use(cors());
-app.use(express.json());
-// app.use(
-//   helmet({
-//     crossOriginResourcePolicy: false,
-//   })
-// );
+// app.use(cors());
+// app.use(express.json());
+// // app.use(
+// //   helmet({
+// //     crossOriginResourcePolicy: false,
+// //   })
+// // );
 
-app.use('/agendash', removeCSP, Agendash(agenda));
+// app.use('/agendash', removeCSP, Agendash(agenda));
 
-// Serve the Parse API on the /parse URL prefix
-app.use('/database', api);
-app.use('/dashboard', removeCSP, dashboard);
+// // Serve the Parse API on the /parse URL prefix
+// app.use('/database', api);
+// app.use('/dashboard', removeCSP, dashboard);
 
-app.use(router);
+// app.use(router);
 
-agenda.on('ready', () => {
-  agenda.start();
-});
+// agenda.on('ready', () => {
+//   agenda.start();
+// });
 
-app.listen(PORT, () => {
-  console.log(`Database listening on ${serverUrl}`);
-  console.log(
-    `Dashboard running on ${serverUrl.replace('/database', '')}/dashboard`
-  );
-  console.log(
-    `Agendash running on ${serverUrl.replace('/database', '')}/agendash`
-  );
-});
+// app.listen(PORT, () => {
+//   console.log(`Database listening on ${serverUrl}`);
+//   console.log(
+//     `Dashboard running on ${serverUrl.replace('/database', '')}/dashboard`
+//   );
+//   console.log(
+//     `Agendash running on ${serverUrl.replace('/database', '')}/agendash`
+//   );
+// });
