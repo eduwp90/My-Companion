@@ -25,6 +25,7 @@ import Data from '../../../../helpers/data';
 import { MdPets, MdHelpOutline } from 'react-icons/md';
 import { BiMaleSign, BiFemaleSign, BiCake, BiPalette } from 'react-icons/bi';
 import PetsService from '../../../../services/petsService';
+import BasicInfoFormComponent from '../formComponent';
 
 function Basic() {
   const { activePet, setActivePet } = useContext(PetsContext);
@@ -171,92 +172,14 @@ function Basic() {
 
         {/* FORM START */}
 
-        <VStack w="100%" spacing={2} p={2} display={editable ? 'auto' : 'none'}>
-          <FormControl isRequired>
-            <InputGroup size="sm">
-              <InputLeftAddon children="Name" />
-              <Input
-                id="name"
-                type="text"
-                placeholder="Enter pet name"
-                value={form.name}
-                onChange={handleChange}
-              />
-            </InputGroup>
-          </FormControl>
-
-          <FormControl isRequired>
-            <RadioGroup
-              id="gender"
-              value={form.gender}
-              onChange={handleChange}
-              size="sm"
-            >
-              <HStack spacing="24px" p={2}>
-                <InputLeftAddon fontSize="sm" children="Gender:" />
-                <Radio value="Male">Male</Radio>
-                <Radio value="Female">Female</Radio>
-              </HStack>
-            </RadioGroup>
-          </FormControl>
-
-          <FormControl isRequired>
-            <Select
-              size="sm"
-              id="breed"
-              placeholder="Select breed"
-              value={form.breed}
-              onChange={handleChange}
-            >
-              {Data.breeds &&
-                Data.breeds.map(breed => (
-                  <option key={breed}>
-                    {breed.charAt(0).toUpperCase() + breed.slice(1)}
-                  </option>
-                ))}
-            </Select>
-          </FormControl>
-
-          <FormControl isRequired>
-            <InputGroup size="sm">
-              <InputLeftAddon children="Color" />
-              <Input
-                id="color"
-                type="text"
-                placeholder="Enter hair color"
-                value={form.color}
-                onChange={handleChange}
-              />
-            </InputGroup>
-          </FormControl>
-
-          <FormControl isRequired>
-            <InputGroup size="sm">
-              <InputLeftAddon children="Birth date" />
-              <Input
-                id="dateOfBirth"
-                type="date"
-                placeholder="Select birth date"
-                value={form.dateOfBirth}
-                onChange={handleChange}
-              />
-            </InputGroup>
-          </FormControl>
-
-          <FormControl>
-            <InputGroup size="sm" mb={1.5}>
-              <InputLeftAddon children="# Chip ID" />
-              <Input
-                id="chipId"
-                type="text"
-                placeholder="Enter pet Chip ID number"
-                autoComplete="off"
-                value={form.chipId}
-                onChange={handleChange}
-              />
-            </InputGroup>
-          </FormControl>
-        </VStack>
+        <BasicInfoFormComponent 
+          parent={form}
+          handleChange={handleChange}
+          formLabel={false}
+          size={'sm'}
+          Data={Data}
+          editable={editable}
+        />
       </form>
 
       {/* Rest of the info */}
