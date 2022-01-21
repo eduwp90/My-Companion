@@ -5,15 +5,8 @@ import {
   Image,
   HStack,
   IconButton,
-  FormControl,
-  Input,
-  Radio,
   VStack,
   Text,
-  InputGroup,
-  Select,
-  InputLeftAddon,
-  RadioGroup,
   SimpleGrid,
   Flex,
   useToast,
@@ -25,7 +18,7 @@ import Data from '../../../../helpers/data';
 import { MdPets, MdHelpOutline } from 'react-icons/md';
 import { BiMaleSign, BiFemaleSign, BiCake, BiPalette } from 'react-icons/bi';
 import PetsService from '../../../../services/petsService';
-import BasicInfoFormComponent from '../formComponent';
+import BasicInfoFormComponent from '../components/basicInfoFormComponent';
 
 function Basic() {
   const { activePet, setActivePet } = useContext(PetsContext);

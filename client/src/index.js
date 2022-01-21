@@ -5,8 +5,8 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Login from './components/login/login';
-import Dashboard from './components/dashboard/dashboard';
+import Login from './pages/login/login';
+import Dashboard from './pages/dashboard/dashboard';
 
 ReactDOM.render(
   <StrictMode>

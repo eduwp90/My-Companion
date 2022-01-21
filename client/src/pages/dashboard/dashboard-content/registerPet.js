@@ -2,7 +2,6 @@ import React, { useState, useContext, useRef, useEffect } from 'react';
 import { PetsContext } from '../petsContext';
 import {
   Heading,
-  Select,
   Stack,
   FormControl,
   InputGroup,
@@ -10,16 +9,13 @@ import {
   Input,
   CircularProgress,
   FormLabel,
-  RadioGroup,
-  Radio,
-  HStack,
 } from '@chakra-ui/react';
 import ErrorMessage from '../../login/errorMessage';
 import Data from '../../../helpers/data';
 import ImageUpload from './imageUpload';
 import PetsService from '../../../services/petsService';
 import { UserContext } from '../../../UserContext';
-import BasicInfoFormComponent from './formComponent';
+import BasicInfoFormComponent from './components/basicInfoFormComponent';
 
 function RegisterPet() {
   const defaultState = {
