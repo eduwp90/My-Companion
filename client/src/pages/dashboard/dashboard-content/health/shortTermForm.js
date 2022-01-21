@@ -2,25 +2,14 @@ import React, { useState, useContext } from 'react';
 import {
   Button,
   Flex,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
   useDisclosure,
-  VStack,
-  FormControl,
-  FormLabel,
-  Select,
-  Input,
   useToast,
 } from '@chakra-ui/react';
 import Data from '../../../../helpers/data.js';
 import moment from 'moment';
 import { PetsContext } from '../../petsContext';
 import PetsService from '../../../../services/petsService';
+import FormModalComponent from '../components/formModalComponent.js';
 
 function ShortTermForm({ forceUpdate }) {
   const defaultFormState = {
@@ -111,102 +100,19 @@ function ShortTermForm({ forceUpdate }) {
       <Button colorScheme="red" size="sm" onClick={onOpen}>
         + Add New
       </Button>
-      <Modal isOpen={isOpen} onClose={onClose} isCentered>
-        <ModalOverlay />
-        <form>
-          <ModalContent m={1}>
-            <ModalHeader>Add new medication</ModalHeader>
-            <ModalCloseButton />
-            <ModalBody>
-              <VStack w="100%">
-                <FormControl isRequired size="sm">
-                  <FormLabel htmlFor="breed">Medication</FormLabel>
-                  <Select
-                    id="medication"
-                    placeholder="Select medication"
-                    value={form.medication}
-                    onChange={handleChange}
-                  >
-                    {Data.medications &&
-                      Data.medications.map(medication => (
-                        <option key={medication}>
-                          {medication.charAt(0).toUpperCase() +
-                            medication.slice(1)}
-                        </option>
-                      ))}
-                  </Select>
-                </FormControl>
-
-                <FormControl>
-                  <FormLabel htmlFor="observations">Observations</FormLabel>
-                  <Input
-                    id="observations"
-                    type="text"
-                    placeholder="Enter observations"
-                    value={form.observations}
-                    onChange={handleChange}
-                  />
-                </FormControl>
-
-                <FormControl isRequired size="sm">
-                  <FormLabel htmlFor="breed">Repeat every</FormLabel>
-                  <Flex w="100%" alignItems="center">
-                    <Input
-                      id="repeatNumber"
-                      type="number"
-                      placeholder="Number"
-                      value={form.repeatNumber}
-                      onChange={handleChange}
-                      me={2}
-                      min="1"
-                      max="20"
-                    />
-                    <Select
-                      id="repeatEvery"
-                      // placeholder="Repeat every"
-                      value={form.repeatEvery}
-                      onChange={handleChange}
-                    >
-                      <option>Hours</option>
-                      <option>Days</option>
-                    </Select>
-                  </Flex>
-                </FormControl>
-
-                <FormControl isRequired>
-                  <FormLabel htmlFor="date">Until</FormLabel>
-                  <Input
-                    id="date"
-                    type="datetime-local"
-                    placeholder="Select date"
-                    value={form.date}
-                    onChange={handleChange}
-                    min={now}
-                  />
-                </FormControl>
-              </VStack>
-            </ModalBody>
-            <ModalFooter>
-              <Button
-                variant="outline"
-                colorScheme="blue"
-                mr={3}
-                onClick={onClose}
-              >
-                Close
-              </Button>
-              <Button
-                type="submit"
-                colorScheme="red"
-                onClick={handleSubmit}
-                isLoading={isLoading}
-              >
-                Save
-              </Button>
-            </ModalFooter>
-          </ModalContent>
-        </form>
-      </Modal>
+      <FormModalComponent 
+        form={form}
+        purpose={'Medication'}
+        handleChange={handleChange}
+        dataArray={Data.medications}
+        dateLabel={'Until'}
+        isLongTerm={false}
+        now={now}
+        onClose={onClose}
+        isLoading={isLoading}
+        handleSubmit={handleSubmit}
+        isOpen={isOpen}
+      />
     </Flex>
   );
 }
