@@ -19,22 +19,21 @@ const {
   removeCSP,
   ParseInit
 } = require("../config/config");
-// import router from "../router";
-const router = require("../router");
-
+import router from "./router";
+// const router = require("./router");
+// const router = require("../router");
 const app = express();
 const PORT = process.env.PORT || 1337;
 const serverUrl = process.env.REACT_APP_SERVER_URL || "http://localhost:1337/database";
 
 ParseInit();
 
-app
-  .use(cors())
-  .use(express.json())
-  .use("/agendash", removeCSP, Agendash(agenda))
-  .use("/database", api)
-  .use("/dashboard", removeCSP, dashboard)
-  .use(router);
+app.use(cors());
+app.use(express.json());
+app.use("/agendash", removeCSP, Agendash(agenda));
+app.use("/database", api);
+app.use("/dashboard", removeCSP, dashboard);
+app.use(router);
 
 agenda
   .on("ready", () => {
