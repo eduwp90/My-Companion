@@ -1,6 +1,7 @@
 const router = require("express").Router();
-const controller = require("../controllers/controller");
+// const controller = require("../controllers/controller");
+import { saveRemainder } from "./controllers/jobs.controller";
 
-router.post("/reminders", controller.saveRemainder);
+router.post("/reminders", saveRemainder);
 
 export default router;
