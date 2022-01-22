@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
-// import { createReminder } from "../../jobs/jobs";
-const jobs = require("../../jobs/jobs");
+import { createReminder } from "../jobs/reminder.job";
+// const jobs = require("../../jobs/jobs");
 
 export function saveRemainder (req: Request, res: Response) {
   try {
     console.log(req.body);
-    jobs.createReminder(req.body);
+    createReminder(req.body);
     res.status(201);
     res.send(req.body);
   } catch (e) {

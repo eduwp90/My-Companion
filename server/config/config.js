@@ -1,11 +1,11 @@
 require('dotenv').config({ path: '../.env' });
 const ParseServer = require('parse-server').ParseServer;
 const ParseDashboard = require('parse-dashboard');
-const Agenda = require('agenda');
+// const Agenda = require('agenda');
 const Parse = require('parse/node');
 const nodemailer = require('nodemailer');
 
-const mongoConnectionString = process.env.DATABASE_URI;
+const mongoConnectionString = process.env.DATABASE_URI || "mongodb://localhost:27017/myCompanion"; //TODO change it in ts file with "!"
 
 const ParseInit = function() {
   Parse.initialize(
@@ -49,7 +49,7 @@ const dashboard = new ParseDashboard(
   options
 );
 
-const agenda = new Agenda({ db: { address: mongoConnectionString } });
+// const agenda = new Agenda({ db: { address: mongoConnectionString } });
 
 const removeCSP = function(req, res, next) {
   res.removeHeader('Content-Security-Policy');
@@ -67,7 +67,8 @@ const transporter = nodemailer.createTransport({
 });
 
 module.exports = {
-  agenda,
+  // agenda,
+  mongoConnectionString,
   api,
   dashboard,
   removeCSP,

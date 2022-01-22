@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import Agendash from "agendash";
+import { agenda } from "./jobs/reminder.job";
 require('dotenv').config();
 // import { 
 //   agenda,
@@ -10,7 +11,6 @@ require('dotenv').config();
 //   ParseInit
 // } from "../config/config";
 const { 
-  agenda,
   api,
   dashboard,
   removeCSP,
