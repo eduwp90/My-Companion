@@ -7,6 +7,7 @@ import * as serviceWorker from './serviceWorker';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Login from './pages/login/login';
 import Dashboard from './pages/dashboard/dashboard';
+// import Authenticate from './pages/login/authenticate';
 
 ReactDOM.render(
   <StrictMode>
@@ -14,6 +15,7 @@ ReactDOM.render(
       <ColorModeScript />
       <Routes>
         <Route path="/" element={<App />}>
+          {/* <Route path="login" element={<Login />} /> */}
           <Route path="login" element={<Login />} />
           <Route path="dashboard" element={<Dashboard />}></Route>
         </Route>

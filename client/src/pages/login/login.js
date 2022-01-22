@@ -4,19 +4,15 @@ import {
   Center,
   Heading,
   Stack,
-  Input,
-  InputGroup,
-  InputLeftElement,
-  FormControl,
   CircularProgress,
   Image,
   VStack,
 } from '@chakra-ui/react';
-import { AtSignIcon, LockIcon } from '@chakra-ui/icons';
 import Register from './register';
 import ErrorMessage from './errorMessage';
 import UserService from '../../services/userService';
 import { UserContext } from '../../UserContext';
+import AuthenticateFormComponent from '../dashboard/dashboard-content/components/authenticateFormComponent';
 
 function Login() {
   const defaultState = {
@@ -76,38 +72,13 @@ function Login() {
           <form action="submit" onSubmit={handleSubmit}>
             {error.isError && <ErrorMessage message={error.errorMessage} />}
             <Stack spacing="5">
-              <FormControl isRequired>
-                <InputGroup>
-                  <InputLeftElement
-                    pointerEvents="none"
-                    children={<AtSignIcon color="gray.500" />}
-                  />
-                  <Input
-                    id="email"
-                    type="email"
-                    placeholder="Enter email"
-                    value={event.email}
-                    onChange={handleChange}
-                  />
-                </InputGroup>
-              </FormControl>
-
-              <FormControl isRequired>
-                <InputGroup>
-                  <InputLeftElement
-                    pointerEvents="none"
-                    children={<LockIcon color="gray.500" />}
-                  />
-                  <Input
-                    id="password"
-                    type="password"
-                    placeholder="Enter password"
-                    autoComplete="on"
-                    value={event.password}
-                    onChange={handleChange}
-                  />
-                </InputGroup>
-              </FormControl>
+              <AuthenticateFormComponent 
+                error={error}
+                handleChange={handleChange}
+                isRegistered={true}
+                spacing={"5"}
+                event={event}
+              />
               <Button type="submit" colorScheme="red" isDisabled={isInvalid}>
                 {isLoading ? (
                   <CircularProgress isIndeterminate size="24px" color="teal" />

@@ -11,16 +11,13 @@ import {
   ModalCloseButton,
   ModalBody,
   ModalFooter,
-  Input,
-  InputGroup,
-  FormControl,
-  FormErrorMessage,
   CircularProgress,
 } from '@chakra-ui/react';
 import UserService from '../../services/userService';
 import Auth from '../../helpers/auth';
 import ErrorMessage from './errorMessage';
 import { UserContext } from '../../UserContext';
+import AuthenticateFormComponent from '../dashboard/dashboard-content/components/authenticateFormComponent';
 
 function Register() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -93,53 +90,15 @@ function Register() {
             <ModalBody>
               <Stack spacing="3">
                 {error.isError && <ErrorMessage message={error.errorMessage} />}
-                <FormControl isRequired isInvalid={invalidEmail}>
-                  <InputGroup>
-                    <Input
-                      id="email"
-                      type="email"
-                      placeholder="Enter email"
-                      value={event.email}
-                      onChange={handleChange}
-                    />
-                  </InputGroup>
-                  {invalidEmail && (
-                    <FormErrorMessage>
-                      Should be a valid email.
-                    </FormErrorMessage>
-                  )}
-                </FormControl>
-
-                <FormControl isRequired>
-                  <InputGroup>
-                    <Input
-                      id="password"
-                      type="password"
-                      placeholder="Enter password"
-                      autoComplete="off"
-                      isInvalid={invalidPassword}
-                      value={event.password}
-                      onChange={handleChange}
-                    />
-                  </InputGroup>
-                </FormControl>
-                <FormControl isRequired isInvalid={invalidPassword}>
-                  <InputGroup>
-                    <Input
-                      id="repeat"
-                      type="password"
-                      placeholder="Repeat password"
-                      autoComplete="off"
-                      value={event.repeat}
-                      onChange={handleChange}
-                    />
-                  </InputGroup>
-                  {invalidPassword && (
-                    <FormErrorMessage>
-                      Passwords should be the equal.
-                    </FormErrorMessage>
-                  )}
-                </FormControl>
+                <AuthenticateFormComponent
+                  error={error}
+                  event={event}
+                  handleChange={handleChange}
+                  isRegistered={false}
+                  spacing={"3"}
+                  invalidPassword={invalidPassword}
+                  invalidEmail={invalidEmail}
+                />
               </Stack>
             </ModalBody>
             <ModalFooter>

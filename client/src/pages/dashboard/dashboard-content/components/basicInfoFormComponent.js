@@ -5,8 +5,6 @@ function BasicInfoFormComponent ({parent, handleChange, formLabel, size, Data, e
   return (
     <div>
     <VStack w="100%" spacing={2} p={2} display={editable ? 'auto' : 'none'}>
-
-    
       <FormControl isRequired>
       {formLabel && <FormLabel htmlFor="name">Pet name</FormLabel> }
         <InputGroup size={size? size : auto}>
@@ -31,7 +29,7 @@ function BasicInfoFormComponent ({parent, handleChange, formLabel, size, Data, e
         >
           <HStack spacing="24px" p={2}>
             {!formLabel && <InputLeftAddon fontSize="sm" children="Gender:" /> }
-            <Radio value="Male">Male</Radio>
+            <Radio data-testid="radio" value="Male">Male</Radio>
             <Radio value="Female">Female</Radio>
           </HStack>
         </RadioGroup>
@@ -40,6 +38,7 @@ function BasicInfoFormComponent ({parent, handleChange, formLabel, size, Data, e
       <FormControl isRequired>
       {formLabel && <FormLabel htmlFor="breed">Breed</FormLabel> }
         <Select
+          data-testid="select"
           size={size? size : auto}
           id="breed"
           placeholder="Select breed"
