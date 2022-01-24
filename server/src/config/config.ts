@@ -8,7 +8,7 @@ import { ParseServer } from "parse-server";
 // import type { Request, Response, NextFunction } from "parse-server";
 // require("dotenv").config({ path: "../../../.env"});
 
-export const mongoConnectionString: any = process.env.DATABASE_URI;
+export const mongoConnectionString: string = process.env.DATABASE_URI!;
 console.log({mongoConnectionString});
 console.log(process.env);
 const id: any = process.env.REACT_APP_APP_ID;
@@ -25,7 +25,7 @@ export function ParseInit () {
 }
 
 export const api = new ParseServer({
-  databaseURI: mongoConnectionString || "mongodb://localhost:27017/myCompanion",
+  databaseURI: mongoConnectionString /*|| "mongodb://localhost:27017/myCompanion"*/,
   appId: process.env.REACT_APP_APP_ID || 'Pet-app',
   masterKey: process.env.MASTER_KEY || '123456',
   serverURL:
