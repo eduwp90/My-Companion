@@ -1,11 +1,9 @@
+import dotenv from "dotenv";
+dotenv.config({ path: "../../.env" });
 import moment from "moment";
 import { Agenda } from "agenda/es";
 import { Job } from "agenda";
-// const { transporter, mongoConnectionString } = require("../../config/config");
 import { transporter, mongoConnectionString } from "../config/config";
-// require("dotenv").config({ path: "../../.env" });
-import dotenv from "dotenv";
-dotenv.config({ path: "../../.env" });
 
 export const agenda = new Agenda({ 
   db: { address: mongoConnectionString } 

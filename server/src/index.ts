@@ -4,19 +4,12 @@ import express from "express";
 import cors from "cors";
 import Agendash from "agendash";
 import { agenda } from "./jobs/reminder.job";
-// require('dotenv').config();
 import { 
   api,
   dashboard,
   //removeCSP,
   ParseInit
 } from "./config/config";
-// const { 
-//   api,
-//   dashboard,
-//   removeCSP,
-//   ParseInit
-// } = require("../config/config");
 import router from "./router";
 const app = express();
 const PORT = process.env.PORT || 1337;

@@ -1,6 +1,5 @@
 import type { Request, Response } from "express";
 import { createReminder } from "../jobs/reminder.job";
-// const jobs = require("../../jobs/jobs");
 
 export function saveRemainder (req: Request, res: Response) {
   try {
@@ -8,8 +7,8 @@ export function saveRemainder (req: Request, res: Response) {
     createReminder(req.body);
     res.status(201);
     res.send(req.body);
-  } catch (e) {
-    console.log('e', e);
+  } catch (error) {
+    console.log('error', error);
     res.sendStatus(500);
   }
 }
