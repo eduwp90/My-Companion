@@ -41,8 +41,11 @@ function Weight() {
     const name = e.target.id;
     let value = e.target.value;
 
-    if (name === 'timestamp') value = Date.parse(value);
-    else value = parseInt(value);
+    if (name === 'timestamp') {
+      value = Date.parse(value);
+    } else {
+      value = parseInt(value);
+    }
 
     setForm({ ...form, [name]: value });
   };
