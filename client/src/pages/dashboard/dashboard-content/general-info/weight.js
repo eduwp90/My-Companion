@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import {
   Box,
   FormControl,
@@ -185,7 +185,7 @@ function Weight() {
       </HStack>
 
       {activePet.get('Weight').length ? (
-        <WeightChart activePet={activePet.get('Weight')} />
+        <WeightChart activePetWeight={activePet.get('Weight')} />
       ) : (
         <NoData />
       )}
