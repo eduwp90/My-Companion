@@ -1,21 +1,22 @@
+import dotenv from "dotenv";
+dotenv.config();
 import express from "express";
 import cors from "cors";
 import Agendash from "agendash";
 import { agenda } from "./jobs/reminder.job";
-require('dotenv').config();
-// import { 
-//   agenda,
+// require('dotenv').config();
+import { 
+  api,
+  dashboard,
+  //removeCSP,
+  ParseInit
+} from "./config/config";
+// const { 
 //   api,
 //   dashboard,
 //   removeCSP,
 //   ParseInit
-// } from "../config/config";
-const { 
-  api,
-  dashboard,
-  removeCSP,
-  ParseInit
-} = require("../config/config");
+// } = require("../config/config");
 import router from "./router";
 const app = express();
 const PORT = process.env.PORT || 1337;
@@ -26,9 +27,9 @@ ParseInit();
 app
   .use(cors())
   .use(express.json())
-  .use("/agendash", removeCSP, Agendash(agenda))
+  .use("/agendash", /*removeCSP,*/ Agendash(agenda))
   .use("/database", api)
-  .use("/dashboard", removeCSP, dashboard)
+  .use("/dashboard", /*removeCSP,*/ dashboard)
   .use(router);
 
 agenda

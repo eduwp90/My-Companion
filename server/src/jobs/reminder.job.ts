@@ -1,8 +1,11 @@
 import moment from "moment";
 import { Agenda } from "agenda/es";
 import { Job } from "agenda";
-const { transporter, mongoConnectionString } = require("../../config/config");
-require("dotenv").config({ path: "../../.env" });
+// const { transporter, mongoConnectionString } = require("../../config/config");
+import { transporter, mongoConnectionString } from "../config/config";
+// require("dotenv").config({ path: "../../.env" });
+import dotenv from "dotenv";
+dotenv.config({ path: "../../.env" });
 
 export const agenda = new Agenda({ 
   db: { address: mongoConnectionString } 
@@ -24,7 +27,7 @@ agenda.define("sendEmailReminder", (job: Job) => {
     Your reminder: ${reminderName} at ${date}`,
   };
 
-  transporter.sendMail(mailData, function(error: string, info: string) {
+  transporter.sendMail(mailData, function(error, info) {
     if (error) console.log(error);
     else console.log(info);
   });

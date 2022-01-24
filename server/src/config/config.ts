@@ -1,11 +1,18 @@
+import dotenv from "dotenv";
+dotenv.config({ path: "../../.env" });
 import Parse from "parse/node";
 import nodemailer from "nodemailer";
 import ParseDashboard from "parse-dashboard";
-import ParseServer from "parse-server";
-// import type { Request, Response, NextFunction } from "parse-server";
-require("dotenv").config({ path: "../../.env"});
+import { ParseServer } from "parse-server";
 
-export const mongoConnectionString = process.env.DATABASE_URI!;
+// import type { Request, Response, NextFunction } from "parse-server";
+// require("dotenv").config({ path: "../../../.env"});
+
+export const mongoConnectionString: any = process.env.DATABASE_URI;
+console.log({mongoConnectionString});
+console.log(process.env);
+const id: any = process.env.REACT_APP_APP_ID;
+console.log({ id });
 
 export function ParseInit () {
   Parse.initialize(
@@ -18,7 +25,7 @@ export function ParseInit () {
 }
 
 export const api = new ParseServer({
-  databaseURI: mongoConnectionString,
+  databaseURI: mongoConnectionString || "mongodb://localhost:27017/myCompanion",
   appId: process.env.REACT_APP_APP_ID || 'Pet-app',
   masterKey: process.env.MASTER_KEY || '123456',
   serverURL:
