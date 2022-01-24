@@ -1,7 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import BasicModalComponent from './basicModalComponent';
-import Data from '../../../../helpers/data';
 import {
   isOpen, 
   onClose,
@@ -12,24 +10,6 @@ const handleChange = e => {
 };
 const selectIcon = () => {
   console.log('selected')
-}
-
-let filledIn = {
-  name: 'Dog Name',
-  gender: 'Female',
-  breed: 'Mix',
-  dateOfBirth: '2020-01-01',
-  color: 'Brown',
-  chipId: '123',
-};
-
-let notFilledIn = {
-  name: '',
-  gender: '',
-  breed: '',
-  dateOfBirth: '',
-  color: '',
-  chipId: '',
 }
 
 let treatment = [0, {treatment:"vacination"}]
