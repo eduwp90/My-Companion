@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, ChangeEvent, FormEvent} from 'react';
 import {
   Button,
   Stack,
@@ -32,20 +32,20 @@ function Register() {
     isError: false,
     errorMessage: '',
   };
-  const [event, setEvent] = useState(defaultState);
+  const [formInputs, setFormInputs] = useState(defaultState);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(errorState);
 
-  const invalidPassword = event.password !== event.repeat;
+  const invalidPassword = formInputs.password !== formInputs.repeat;
 
-  const invalidEmail = event.email.length
-    ? !Auth.validateEmail(event.email)
+  const invalidEmail = formInputs.email.length
+    ? !Auth.validateEmail(formInputs.email)
     : false;
 
   const isInvalid =
-    event.email === '' ||
-    event.password === '' ||
-    event.repeat === '' ||
+    formInputs.email === '' ||
+    formInputs.password === '' ||
+    formInputs.repeat === '' ||
     invalidPassword ||
     invalidEmail;
 
@@ -54,18 +54,18 @@ function Register() {
   const handleChange = e => {
     const name = e.target.id;
     const value = e.target.value;
-    setEvent({ ...event, [name]: value });
+    setFormInputs({ ...formInputs, [name]: value });
   };
 
   const handleSubmit = async e => {
     e.preventDefault();
     setIsLoading(true);
     setError({ ...error, isError: false });
-    const user = await UserService.saveUser(event.email, event.password);
+    const user = await UserService.saveUser(formInputs.email, formInputs.password);
 
     if (typeof user === 'string') {
       setError({ isError: true, errorMessage: user });
-      setEvent(defaultState);
+      setFormInputs(defaultState);
       setIsLoading(false);
     } else {
       setUser(user);
@@ -92,7 +92,7 @@ function Register() {
                 {error.isError && <ErrorMessage message={error.errorMessage} />}
                 <AuthenticateFormComponent
                   error={error}
-                  event={event}
+                  event={formInputs}
                   handleChange={handleChange}
                   isRegistered={false}
                   spacing={"3"}
