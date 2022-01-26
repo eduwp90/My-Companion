@@ -9,16 +9,11 @@ import {
   CircularProgress,
   Image,
   VStack, 
-  FormControl,
-  InputGroup,
-  Input, 
-  InputLeftElement,
 } from '@chakra-ui/react';
-import {  AtSignIcon, LockIcon}  from '@chakra-ui/icons';
 import Register from './register';
-import ErrorMessage from './errorMessage';
 import UserService from '../../services/userService';
 import { UserContext } from '../../UserContext';
+import AuthenticateFormComponent from '../dashboard/dashboard-content/components/authenticateFormComponent';
 
 const inputSchema = object({
   email: string().email(),
@@ -40,7 +35,6 @@ function Login() {
   });
 
   const { setUser } = useContext(UserContext);
-  const regex = new RegExp(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/, 'g');
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     const user = await UserService.loginUser(data.email, data.password);
@@ -67,49 +61,19 @@ function Login() {
           <Heading as="h1" size="md">
             Log in
           </Heading>
+
           <form action="submit" onSubmit={handleSubmit(onSubmit)}>
-            {error && !isDirty && <ErrorMessage message={error} />}
             <Stack spacing="5">
-
-              <FormControl isRequired isInvalid={errors.email? true : false}>
-                <InputGroup>
-                <InputLeftElement
-                  pointerEvents="none"
-                  children={<AtSignIcon color="gray.500" />}
-                /> 
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="Enter email"
-                  {...register('email', {
-                    required: {value: true, message: 'Email is required'},
-                    pattern: {value: regex, message: 'Must be valid email.'},
-                  })}
-                />
-                </InputGroup>
-                {errors.email && errors.email.message && <ErrorMessage message={errors.email.message} />}
-              </FormControl>
-
-              <FormControl isRequired isInvalid={errors.password? true : false}>
-                <InputGroup>
-                <InputLeftElement
-                  pointerEvents="none"
-                  children={<LockIcon color="gray.500" />}
-                />
-                <Input
-                  id="password"
-                  type="password"
-                  placeholder="Enter password"
-                  autoComplete="on"
-                  {...register('password', {
-                    required: 'Password is required.',
-                    minLength: { value: 3, message: 'Password is too short.'},
-                  })}
-                />
-                </InputGroup>
-                {errors.password && errors.password.message && <ErrorMessage message={errors.password.message} />}
-              </FormControl>
-
+    
+              <AuthenticateFormComponent 
+                error={error} 
+                isRegistered={true} 
+                spacing={"5"} 
+                register={register} 
+                formState={{isDirty, errors}}
+                getValues={undefined}
+              />       
+              
               <Button type="submit" colorScheme="red" isLoading={isSubmitting} disabled={!isDirty || !isValid}>
                 {isSubmitting? (
                   <CircularProgress isIndeterminate size="24px" color="teal" />
