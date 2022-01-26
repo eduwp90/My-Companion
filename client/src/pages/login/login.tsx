@@ -1,4 +1,5 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
+import { string, object, InferType } from 'yup';
 import { useForm, SubmitHandler } from 'react-hook-form'
 import {
   Button,
@@ -11,7 +12,6 @@ import {
   FormControl,
   InputGroup,
   Input, 
-  FormErrorMessage,
   InputLeftElement,
 } from '@chakra-ui/react';
 import {  AtSignIcon, LockIcon}  from '@chakra-ui/icons';
@@ -20,13 +20,17 @@ import ErrorMessage from './errorMessage';
 import UserService from '../../services/userService';
 import { UserContext } from '../../UserContext';
 
-type Inputs = {
-  email: string,
-  password: string,
-};
+const inputSchema = object({
+  email: string().email(),
+  password: string()
+})
+
+let error:string = '';
+
+type Inputs = InferType<typeof inputSchema>
 
 function Login() {
-  const { handleSubmit, register, formState: {errors, isSubmitting, isDirty, isValid}} = useForm<Inputs>({
+  const { handleSubmit, register, reset, formState: {errors, isSubmitting, isDirty, isValid}} = useForm<Inputs>({
     defaultValues: {
       email: '',
       password: ''
@@ -37,10 +41,13 @@ function Login() {
   const { setUser } = useContext(UserContext);
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-
-    console.log('data',data);
     const user = await UserService.loginUser(data.email, data.password);
-    setUser(user);
+    if (typeof user === 'string') {
+      error = user;
+      reset({},{keepValues: true});
+    } else {
+      setUser(user);
+    }
   }
 
 
@@ -60,7 +67,9 @@ function Login() {
             Log in
           </Heading>
           <form action="submit" onSubmit={handleSubmit(onSubmit)}>
+            {error && !isDirty && <ErrorMessage message={error} />}
             <Stack spacing="5">
+
               <FormControl isRequired>
                   <InputGroup>
                   <InputLeftElement
