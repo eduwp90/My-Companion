@@ -17,13 +17,10 @@ import {
   FormControl,
   InputGroup,
   Input,
-  FormErrorMessage,
 } from '@chakra-ui/react';
 import UserService from '../../services/userService';
-import Auth from '../../helpers/auth';
 import ErrorMessage from './errorMessage';
 import { UserContext } from '../../UserContext';
-// import AuthenticateFormComponent from '../dashboard/dashboard-content/components/authenticateFormComponent';
 
 const inputSchema = object({
   email: string().email(),
@@ -47,10 +44,7 @@ function Register() {
   });
 
   const regex = new RegExp(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/, 'g');
-
-
   const { isOpen, onOpen, onClose } = useDisclosure();
-
   const { setUser } = useContext(UserContext);
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
@@ -81,59 +75,55 @@ function Register() {
             <ModalBody>
               <Stack spacing="3">
               {error && !isDirty && <ErrorMessage message={error} />}
+              
                 <FormControl isRequired isInvalid={errors.email? true : false}>
-                <InputGroup>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="Enter email"
-                  {...register('email', {
-                    required: {value: true, message: 'Email is required.'},
-                    pattern: {value: regex, message: 'Must be valid email.'},
-                  })}
-                />
-                </InputGroup>
-                {/* {errors.email && (
-                  <FormErrorMessage>
-                    Should be a valid email.
-                  </FormErrorMessage>
-                )} */}
-              </FormControl>
-              {errors.email && <ErrorMessage message={'Email is required.'} />}
-
-              <FormControl isRequired isInvalid={errors.password? true: false}>
-                <InputGroup>
-                <Input
-                  id="password"
-                  type="password"
-                  placeholder="Enter password"
-                  autoComplete="off"
-                  {...register('password', {
-                    required: 'Password is required.',
-                    minLength: { value: 3, message: 'Password is too short.'}
-                  })}
-                />
-                </InputGroup>
-              </FormControl>
-              {errors.password && <ErrorMessage message={errors.password.message} />}
-              <FormControl isRequired isInvalid={errors.repeat? true: false}>
-                <InputGroup>
+                  <InputGroup>
                   <Input
-                    id="repeat"
-                    type="password"
-                    placeholder="Repeat password"
-                    autoComplete="off"
-                    {...register('repeat', {
-                      required: 'Re-enter password.',
-                      validate: value => value === getValues('password') || 'Repeat password exactly'
-                    }
-                    )}
+                    id="email"
+                    type="email"
+                    placeholder="Enter email"
+                    {...register('email', {
+                      required: {value: true, message: 'Email is required.'},
+                      pattern: {value: regex, message: 'Must be valid email.'},
+                    })}
                   />
-                </InputGroup>
-                {errors.repeat && <ErrorMessage message={errors.repeat.message} />}
-                {/* {!errors.repeat && (getValues('repeat') !== getValues('password')) && <ErrorMessage message={"Repeat password exactly."} />} */}
+                  </InputGroup>
+                  {errors.email && <ErrorMessage message={errors.email.message} />}
+                </FormControl>
                 
-              </FormControl>
+                <FormControl isRequired isInvalid={errors.password? true: false}>
+                  <InputGroup>
+                  <Input
+                    id="password"
+                    type="password"
+                    placeholder="Enter password"
+                    autoComplete="off"
+                    {...register('password', {
+                      required: 'Password is required.',
+                      minLength: { value: 3, message: 'Password is too short.'}
+                    })}
+                  />
+                  </InputGroup>
+                  {errors.password && <ErrorMessage message={errors.password.message} />}
+                </FormControl>
+                
+                <FormControl isRequired isInvalid={errors.repeat? true: false}>
+                  <InputGroup>
+                    <Input
+                      id="repeat"
+                      type="password"
+                      placeholder="Repeat password"
+                      autoComplete="off"
+                      {...register('repeat', {
+                        required: 'Re-enter password.',
+                        validate: value => value === getValues('password') || 'Repeat password exactly'
+                      }
+                      )}
+                    />
+                  </InputGroup>
+                  {errors.repeat && <ErrorMessage message={errors.repeat.message} />}                  
+                </FormControl>
+
               </Stack>
             </ModalBody>
             <ModalFooter>

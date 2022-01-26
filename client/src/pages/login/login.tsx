@@ -37,8 +37,10 @@ function Login() {
     },
     mode: 'onBlur',
     reValidateMode: 'onChange'
-});
+  });
+
   const { setUser } = useContext(UserContext);
+  const regex = new RegExp(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/, 'g');
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     const user = await UserService.loginUser(data.email, data.password);
@@ -49,7 +51,6 @@ function Login() {
       setUser(user);
     }
   }
-
 
   return (
     <Center h="100vh" bg="red.100">
@@ -70,43 +71,44 @@ function Login() {
             {error && !isDirty && <ErrorMessage message={error} />}
             <Stack spacing="5">
 
-              <FormControl isRequired>
-                  <InputGroup>
-                  <InputLeftElement
-                    pointerEvents="none"
-                    children={<AtSignIcon color="gray.500" />}
-                  /> 
-                  <Input
-                    id="email"
-                    type="email"
-                    placeholder="Enter email"
-                    {...register('email', {
-                      required: {value: true, message: 'Email is required'},
-                    })}
-                  />
-                  </InputGroup>
-                </FormControl>
-                {errors.email && <ErrorMessage message={'Email is required.'} />}
+              <FormControl isRequired isInvalid={errors.email? true : false}>
+                <InputGroup>
+                <InputLeftElement
+                  pointerEvents="none"
+                  children={<AtSignIcon color="gray.500" />}
+                /> 
+                <Input
+                  id="email"
+                  type="email"
+                  placeholder="Enter email"
+                  {...register('email', {
+                    required: {value: true, message: 'Email is required'},
+                    pattern: {value: regex, message: 'Must be valid email.'},
+                  })}
+                />
+                </InputGroup>
+                {errors.email && <ErrorMessage message={errors.email.message} />}
+              </FormControl>
 
-                <FormControl isRequired>
-                  <InputGroup>
-                    <InputLeftElement
-                      pointerEvents="none"
-                      children={<LockIcon color="gray.500" />}
-                    />
-                  <Input
-                    id="password"
-                    type="password"
-                    placeholder="Enter password"
-                    autoComplete="on"
-                    {...register('password', {
-                      required: 'Password is required.',
-                      minLength: { value: 3, message: 'Password is too short.'}
-                    })}
-                  />
-                  </InputGroup>
-                </FormControl>
+              <FormControl isRequired isInvalid={errors.password? true : false}>
+                <InputGroup>
+                <InputLeftElement
+                  pointerEvents="none"
+                  children={<LockIcon color="gray.500" />}
+                />
+                <Input
+                  id="password"
+                  type="password"
+                  placeholder="Enter password"
+                  autoComplete="on"
+                  {...register('password', {
+                    required: 'Password is required.',
+                    minLength: { value: 3, message: 'Password is too short.'},
+                  })}
+                />
+                </InputGroup>
                 {errors.password && <ErrorMessage message={errors.password.message} />}
+              </FormControl>
 
               <Button type="submit" colorScheme="red" isLoading={isSubmitting} disabled={!isDirty || !isValid}>
                 {isSubmitting? (
@@ -115,6 +117,7 @@ function Login() {
                   'Log In'
                 )}
               </Button>
+
             </Stack>
           </form>
           <Register />
