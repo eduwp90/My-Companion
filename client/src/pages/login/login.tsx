@@ -87,7 +87,7 @@ function Login() {
                   })}
                 />
                 </InputGroup>
-                {errors.email && <ErrorMessage message={errors.email.message} />}
+                {errors.email && errors.email.message && <ErrorMessage message={errors.email.message} />}
               </FormControl>
 
               <FormControl isRequired isInvalid={errors.password? true : false}>
@@ -107,7 +107,7 @@ function Login() {
                   })}
                 />
                 </InputGroup>
-                {errors.password && <ErrorMessage message={errors.password.message} />}
+                {errors.password && errors.password.message && <ErrorMessage message={errors.password.message} />}
               </FormControl>
 
               <Button type="submit" colorScheme="red" isLoading={isSubmitting} disabled={!isDirty || !isValid}>

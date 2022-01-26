@@ -75,7 +75,7 @@ function Register() {
             <ModalBody>
               <Stack spacing="3">
               {error && !isDirty && <ErrorMessage message={error} />}
-              
+
                 <FormControl isRequired isInvalid={errors.email? true : false}>
                   <InputGroup>
                   <Input
@@ -88,7 +88,7 @@ function Register() {
                     })}
                   />
                   </InputGroup>
-                  {errors.email && <ErrorMessage message={errors.email.message} />}
+                  {errors.email && errors.email.message && <ErrorMessage message={errors.email.message} />}
                 </FormControl>
                 
                 <FormControl isRequired isInvalid={errors.password? true: false}>
@@ -104,7 +104,7 @@ function Register() {
                     })}
                   />
                   </InputGroup>
-                  {errors.password && <ErrorMessage message={errors.password.message} />}
+                  {errors.password && errors.password.message && <ErrorMessage message={errors.password.message} />}
                 </FormControl>
                 
                 <FormControl isRequired isInvalid={errors.repeat? true: false}>
@@ -121,7 +121,7 @@ function Register() {
                       )}
                     />
                   </InputGroup>
-                  {errors.repeat && <ErrorMessage message={errors.repeat.message} />}                  
+                  {errors.repeat && errors.repeat.message && <ErrorMessage message={errors.repeat.message} />}                  
                 </FormControl>
 
               </Stack>
