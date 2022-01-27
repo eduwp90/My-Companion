@@ -33,16 +33,20 @@ agenda.define("sendEmailReminder", (job: Job) => {
 });
 
 export async function createReminder (body: any) {
-  agenda
-    .create('sendEmailReminder', body)
-    .unique({
-      'data.email': body.email,
-      'data.petName': body.petName,
-      'data.reminderName': body.reminderName,
-      'data.date': body.date,
-    })
-    .schedule(moment.unix(body.date).subtract(1, 'hours'))
-    .save();
-
+  console.log(body);
+  try {
+    agenda
+      .create('sendEmailReminder', body)
+      .unique({
+        'data.email': body.email,
+        'data.petName': body.petName,
+        'data.reminderName': body.reminderName,
+        'data.date': body.date,
+      })
+      .schedule(moment.unix(body.date).subtract(1, 'hours'))
+      .save();
+  } catch (error) {
+    console.log(error, "error in reminder.job")
+  }
   return;
 }

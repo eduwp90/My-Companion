@@ -1,10 +1,10 @@
 import type { Request, Response } from "express";
 import { createReminder } from "../jobs/reminder.job";
 
-export function saveRemainder (req: Request, res: Response) {
+export async function saveRemainder (req: Request, res: Response) {
   try {
     console.log(req.body);
-    createReminder(req.body);
+    await createReminder(req.body);
     res.status(201);
     res.send(req.body);
   } catch (error) {
