@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import {
   useDisclosure,
   Drawer,
@@ -26,11 +26,6 @@ function Dashboard() {
   const [activePet, setActivePet] = useState(null);
 
   const { user } = useContext(UserContext);
-
-  // const providerValue = useMemo(
-  //   () => ({ pets, setPets, activePet, setActivePet, component, setComponent }),
-  //   [pets, setPets, activePet, setActivePet, component, setComponent]
-  // );
 
   function renderContent(component) {
     switch (component) {

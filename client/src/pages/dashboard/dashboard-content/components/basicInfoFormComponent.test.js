@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event';
 import BasicInfoFormComponent from './basicInfoFormComponent';
 import Data from '../../../../helpers/data';
 const handleChange = e => {
-  1+1;
+  return 1+1;
 };
 
 let filledIn = {

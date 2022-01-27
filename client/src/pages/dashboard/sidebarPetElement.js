@@ -1,7 +1,7 @@
-import { Box, Avatar, Text, Flex, Icon, VStack } from '@chakra-ui/react';
+import { Avatar, Text, Flex, Icon, VStack } from '@chakra-ui/react';
 import React, { useContext } from 'react';
 import { PetsContext } from './petsContext';
-import { MdInfoOutline, MdLocalHospital, MdSchool } from 'react-icons/md';
+import { MdInfoOutline, MdLocalHospital, /* MdSchool */} from 'react-icons/md';
 
 function SidebarPetElement({ pet, close }) {
   const { activePet, setActivePet, component, setComponent } =

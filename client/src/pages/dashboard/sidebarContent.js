@@ -13,7 +13,7 @@ import { PetsContext } from './petsContext';
 import SidebarPetElement from './sidebarPetElement';
 
 const SidebarContent = ({ onClose, ...rest }) => {
-  const { pets, setPets, component, setComponent } = useContext(PetsContext);
+  const { pets, component, setComponent } = useContext(PetsContext);
   return (
     <Box
       transition="1s ease"
