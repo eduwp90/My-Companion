@@ -22,12 +22,16 @@ AuthenticateFormComponent.propTypes = {
   getValues: PropTypes.func,
 }
 
-function AuthenticateFormComponent ({error, isRegistered, spacing, register, formState, getValues}: InferProps<typeof AuthenticateFormComponent.propTypes>) {
+function AuthenticateFormComponent ({error, isRegistered, spacing, register, formState, getValues}: 
+  InferProps<typeof AuthenticateFormComponent.propTypes>) {
+
   const regex = new RegExp(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/, 'g');
 
   return (
     <Stack spacing={spacing}>
-      {error && !formState.isDirty && <ErrorMessage message={error} />}
+      {error && !formState.isDirty && 
+      <ErrorMessage message={error} />}
+
       <FormControl isRequired isInvalid={formState.errors.email? true : false}>
         <InputGroup>
         {isRegistered && <InputLeftElement
@@ -44,7 +48,8 @@ function AuthenticateFormComponent ({error, isRegistered, spacing, register, for
           })}
         />
         </InputGroup>
-        {formState.errors.email && formState.errors.email.message && <ErrorMessage message={formState.errors.email.message} />}
+        {formState.errors.email && formState.errors.email.message && 
+        <ErrorMessage message={formState.errors.email.message} />}
       </FormControl>
 
       <FormControl isRequired isInvalid={formState.errors.password? true: false}>
@@ -64,10 +69,12 @@ function AuthenticateFormComponent ({error, isRegistered, spacing, register, for
           })}
         />
         </InputGroup>
-        {formState.errors.password && formState.errors.password.message && <ErrorMessage message={formState.errors.password.message} />}
+        {formState.errors.password && formState.errors.password.message && 
+        <ErrorMessage message={formState.errors.password.message} />}
       </FormControl>
 
-      {!isRegistered && getValues && <FormControl isRequired isInvalid={formState.errors.repeat? true: false}>
+      {!isRegistered && getValues && 
+      <FormControl isRequired isInvalid={formState.errors.repeat? true: false}>
         <InputGroup>
         <Input
           id="repeat"
@@ -81,7 +88,8 @@ function AuthenticateFormComponent ({error, isRegistered, spacing, register, for
           )}
         />
         </InputGroup>
-        {formState.errors.repeat && formState.errors.repeat.message && <ErrorMessage message={formState.errors.repeat.message} />}
+        {formState.errors.repeat && formState.errors.repeat.message && 
+        <ErrorMessage message={formState.errors.repeat.message} />}
       </FormControl> }
 
     </Stack>

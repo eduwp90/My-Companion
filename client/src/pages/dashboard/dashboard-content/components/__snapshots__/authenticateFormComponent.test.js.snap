@@ -32,7 +32,6 @@ exports[`BasicInfoFormComponent BasicInfoFormComponent should match login snapsh
         placeholder="Enter email"
         required=""
         type="email"
-        value=""
       />
     </div>
   </div>
@@ -59,13 +58,12 @@ exports[`BasicInfoFormComponent BasicInfoFormComponent should match login snapsh
       </div>
       <input
         aria-required="true"
-        autocomplete="on"
+        autocomplete="off"
         class="chakra-input css-0"
         id="password"
         placeholder="Enter password"
         required=""
         type="password"
-        value=""
       />
     </div>
   </div>
@@ -90,7 +88,6 @@ exports[`BasicInfoFormComponent BasicInfoFormComponent should match register sna
         placeholder="Enter email"
         required=""
         type="email"
-        value=""
       />
     </div>
   </div>
@@ -102,7 +99,6 @@ exports[`BasicInfoFormComponent BasicInfoFormComponent should match register sna
       class="chakra-input__group css-4302v8"
     >
       <input
-        aria-invalid="true"
         aria-required="true"
         autocomplete="off"
         class="chakra-input css-0"
@@ -110,7 +106,6 @@ exports[`BasicInfoFormComponent BasicInfoFormComponent should match register sna
         placeholder="Enter password"
         required=""
         type="password"
-        value=""
       />
     </div>
   </div>
@@ -122,8 +117,6 @@ exports[`BasicInfoFormComponent BasicInfoFormComponent should match register sna
       class="chakra-input__group css-4302v8"
     >
       <input
-        aria-describedby="field-5-feedback"
-        aria-invalid="true"
         aria-required="true"
         autocomplete="off"
         class="chakra-input css-0"
@@ -131,15 +124,7 @@ exports[`BasicInfoFormComponent BasicInfoFormComponent should match register sna
         placeholder="Repeat password"
         required=""
         type="password"
-        value=""
       />
-    </div>
-    <div
-      aria-live="polite"
-      class="chakra-form__error-message css-70qvj9"
-      id="field-5-feedback"
-    >
-      Passwords should be the equal.
     </div>
   </div>
 </div>
