@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, Center, CircularProgress, Flex, VStack } from '@chakra-ui/react';
+import { Text, Center, CircularProgress, VStack } from '@chakra-ui/react';
 
 function LoadingContent() {
   return (

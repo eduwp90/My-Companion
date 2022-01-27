@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { PetsContext } from '../../petsContext';
 
 function Training() {
-  const { activePet, setActivePet, component, setComponent } =
+  const { activePet, /* setActivePet, component, setComponent */} =
     useContext(PetsContext);
   return (
     <div>

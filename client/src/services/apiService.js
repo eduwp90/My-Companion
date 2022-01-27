@@ -1,6 +1,4 @@
-const BASE_URL = 'http://localhost:1337';
-// const BASE_URL = "https://cw-events-092017.herokuapp.com";
-
+const BASE_URL = process.env.BASE_URL;
 async function fetchRequest(path, options) {
   return fetch(BASE_URL + path, options)
     .then(res => (res.status < 400 ? res : Promise.reject()))

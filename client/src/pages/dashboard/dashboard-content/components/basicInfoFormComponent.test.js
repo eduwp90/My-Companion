@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event';
 import BasicInfoFormComponent from './basicInfoFormComponent';
 import Data from '../../../../helpers/data';
 const handleChange = e => {
-  1+1;
+  return 1+1;
 };
 
 let filledIn = {
@@ -39,10 +39,10 @@ describe ('BasicInfoFormComponent', () => {
   })
   test('should not render form labels if formLable set to false', () => {
     render(<BasicInfoFormComponent parent={filledIn} handleChange={handleChange} formLabel={false} size={"sm"} Data={Data} editable={true} />)
-    const label1 = screen.queryByText(/Pet name/)
-    const label2 = screen.queryByText(/Breed/)
-    expect(label1).not.toBeInTheDocument()
-    expect(label2).not.toBeInTheDocument()
+    const formLabel_Name = screen.queryByText(/Pet name/)
+    const formLabel_Breed = screen.queryByText(/Breed/)
+    expect(formLabel_Name).not.toBeInTheDocument()
+    expect(formLabel_Breed).not.toBeInTheDocument()
   })
 
   test('form should render correctly when formLabel set to true', () => {

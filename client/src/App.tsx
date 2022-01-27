@@ -16,6 +16,7 @@ function App() {
 
   const [user, setUser] = useState(UserService.getCurrentUser());
   const providerValue = useMemo(() => ({ user, setUser }), [user, setUser]);
+  console.log(providerValue);
   const navigate = useNavigate();
 
   useEffect(() => {

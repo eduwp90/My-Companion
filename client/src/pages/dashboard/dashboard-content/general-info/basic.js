@@ -52,7 +52,7 @@ function Basic() {
       return;
     }
     const name = e.target.id;
-    let value = e.target.value;
+    const value = e.target.value;
 
     setForm({ ...form, [name]: value });
   };

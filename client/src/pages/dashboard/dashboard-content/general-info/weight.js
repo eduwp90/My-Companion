@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import {
   Box,
   FormControl,
@@ -41,8 +41,11 @@ function Weight() {
     const name = e.target.id;
     let value = e.target.value;
 
-    if (name === 'timestamp') value = Date.parse(value);
-    else value = parseInt(value);
+    if (name === 'timestamp') {
+      value = Date.parse(value);
+    } else {
+      value = parseInt(value);
+    }
 
     setForm({ ...form, [name]: value });
   };
@@ -182,7 +185,7 @@ function Weight() {
       </HStack>
 
       {activePet.get('Weight').length ? (
-        <WeightChart activePet={activePet.get('Weight')} />
+        <WeightChart activePetWeight={activePet.get('Weight')} />
       ) : (
         <NoData />
       )}
