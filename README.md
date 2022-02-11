@@ -1,8 +1,19 @@
-# Codeworks - Solo project
+# My companion
 
-## Pet app (My companion)
+## Codeworks - Solo project
 
-This website was created during Codeworks bootcamp, in a week in order to practice and test coding skills. The website is mobile oriented and helps to keep track of your Dogs data.
+<p align="center">
+  <img src="images/appLogo-whitebg.png" width="400" />
+</p>
+
+This mobile oriented website helps keep track of your Dogs data, vet appointments & medication.
+It was created during Codeworks bootcamp, in a period of a week, in order to practice and test coding skills.
+
+# Screenshots
+
+<p align="center">
+<a href="images/promo shots.png"><img src="images/promo shots.png" width="800"  /></a>
+</p>
 
 # Instructions
 
@@ -26,6 +37,6 @@ EMAIL_PASSWORD=GMAIL_PASSWORD
 - In `./server` start the backend with `node index.js`
 - In `./client` start the website with `npm start`
 
-## Demo youtube video:
+## Demo video:
 
 [Video](https://youtu.be/nAHyZd0Ej88)
