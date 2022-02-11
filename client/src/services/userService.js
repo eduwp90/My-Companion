@@ -10,11 +10,8 @@ async function saveUser(email, password) {
     await user.signUp();
     const currentUser = Parse.User.current();
     console.log('Current user ', currentUser);
-    // Hooray! Let them use the app now.
     return currentUser;
   } catch (error) {
-    // Show the error message somewhere and let the user try again.
-    //console.error('Error: ' + error.code + ' ' + error.message);
     return error.message;
   }
 }
@@ -25,7 +22,6 @@ async function loginUser(email, password) {
     const currentUser = Parse.User.current();
     return currentUser;
   } catch (error) {
-    //console.error('Error: ' + error.code + ' ' + error.message);
     return error.message;
   }
 }
@@ -36,7 +32,6 @@ async function logoutUser() {
     const currentUser = Parse.User.current();
     return currentUser;
   } catch (error) {
-    //console.error('Error: ' + error.code + ' ' + error.message);
     return error.message;
   }
 }

@@ -1,0 +1,496 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BasicInfoFormComponent BasicInfoFormComponent should match snapshot 1`] = `
+<div>
+  <div
+    class="chakra-stack css-azlv48"
+  >
+    <div
+      class="chakra-form-control css-0"
+      role="group"
+    >
+      <div
+        class="chakra-input__group css-4302v8"
+      >
+        <div
+          class="chakra-input__left-addon css-1lhl5nw"
+        >
+          Name
+        </div>
+        <input
+          aria-required="true"
+          class="chakra-input css-fu3wfu"
+          id="name"
+          placeholder="Enter pet name"
+          required=""
+          type="text"
+          value="Dog Name"
+        />
+      </div>
+    </div>
+    <div
+      class="chakra-form-control css-0"
+      role="group"
+    >
+      <div
+        class="chakra-radio-group css-0"
+        id="gender"
+        role="radiogroup"
+      >
+        <div
+          class="chakra-stack css-1wqbkz4"
+        >
+          <div
+            class="chakra-input__left-addon css-15q1gfr"
+          >
+            Gender:
+          </div>
+          <label
+            class="chakra-radio css-1pw4d56"
+          >
+            <input
+              aria-required="true"
+              class="chakra-radio__input"
+              id="radio-2"
+              name="radio-4"
+              required=""
+              style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;"
+              type="radio"
+              value="Male"
+            />
+            <span
+              aria-hidden="true"
+              class="chakra-radio__control css-ssalds"
+              data-testid="radio"
+            />
+            <span
+              class="chakra-radio__label css-1y8kf23"
+            >
+              Male
+            </span>
+          </label>
+          <label
+            class="chakra-radio css-1pw4d56"
+            data-checked=""
+          >
+            <input
+              aria-required="true"
+              checked=""
+              class="chakra-radio__input"
+              id="radio-3"
+              name="radio-4"
+              required=""
+              style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;"
+              type="radio"
+              value="Female"
+            />
+            <span
+              aria-hidden="true"
+              class="chakra-radio__control css-ssalds"
+              data-checked=""
+            />
+            <span
+              class="chakra-radio__label css-1y8kf23"
+              data-checked=""
+            >
+              Female
+            </span>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div
+      class="chakra-form-control css-0"
+      role="group"
+    >
+      <div
+        class="chakra-select__wrapper css-42b2qy"
+      >
+        <select
+          aria-required="true"
+          class="chakra-select css-1ik61og"
+          data-testid="select"
+          id="breed"
+          required=""
+        >
+          <option
+            value=""
+          >
+            Select breed
+          </option>
+          <option>
+            Affenpinscher
+          </option>
+          <option>
+            African
+          </option>
+          <option>
+            Airedale
+          </option>
+          <option>
+            Akita
+          </option>
+          <option>
+            Appenzeller
+          </option>
+          <option>
+            Australian
+          </option>
+          <option>
+            Basenji
+          </option>
+          <option>
+            Beagle
+          </option>
+          <option>
+            Bluetick
+          </option>
+          <option>
+            Borzoi
+          </option>
+          <option>
+            Bouvier
+          </option>
+          <option>
+            Boxer
+          </option>
+          <option>
+            Brabancon
+          </option>
+          <option>
+            Briard
+          </option>
+          <option>
+            Buhund
+          </option>
+          <option>
+            Bulldog
+          </option>
+          <option>
+            Bullterrier
+          </option>
+          <option>
+            Cattledog
+          </option>
+          <option>
+            Chihuahua
+          </option>
+          <option>
+            Chow
+          </option>
+          <option>
+            Clumber
+          </option>
+          <option>
+            Cockapoo
+          </option>
+          <option>
+            Collie
+          </option>
+          <option>
+            Coonhound
+          </option>
+          <option>
+            Corgi
+          </option>
+          <option>
+            Cotondetulear
+          </option>
+          <option>
+            Dachshund
+          </option>
+          <option>
+            Dalmatian
+          </option>
+          <option>
+            Dane
+          </option>
+          <option>
+            Deerhound
+          </option>
+          <option>
+            Dhole
+          </option>
+          <option>
+            Dingo
+          </option>
+          <option>
+            Doberman
+          </option>
+          <option>
+            Elkhound
+          </option>
+          <option>
+            Entlebucher
+          </option>
+          <option>
+            Eskimo
+          </option>
+          <option>
+            Finnish
+          </option>
+          <option>
+            Frise
+          </option>
+          <option>
+            Germanshepherd
+          </option>
+          <option>
+            Greyhound
+          </option>
+          <option>
+            Groenendael
+          </option>
+          <option>
+            Havanese
+          </option>
+          <option>
+            Hound
+          </option>
+          <option>
+            Husky
+          </option>
+          <option>
+            Keeshond
+          </option>
+          <option>
+            Kelpie
+          </option>
+          <option>
+            Komondor
+          </option>
+          <option>
+            Kuvasz
+          </option>
+          <option>
+            Labradoodle
+          </option>
+          <option>
+            Labrador
+          </option>
+          <option>
+            Leonberg
+          </option>
+          <option>
+            Lhasa
+          </option>
+          <option>
+            Malamute
+          </option>
+          <option>
+            Malinois
+          </option>
+          <option>
+            Maltese
+          </option>
+          <option>
+            Mastiff
+          </option>
+          <option>
+            Mexicanhairless
+          </option>
+          <option>
+            Mix
+          </option>
+          <option>
+            Mountain
+          </option>
+          <option>
+            Newfoundland
+          </option>
+          <option>
+            Otterhound
+          </option>
+          <option>
+            Ovcharka
+          </option>
+          <option>
+            Papillon
+          </option>
+          <option>
+            Pekinese
+          </option>
+          <option>
+            Pembroke
+          </option>
+          <option>
+            Pinscher
+          </option>
+          <option>
+            Pitbull
+          </option>
+          <option>
+            Pointer
+          </option>
+          <option>
+            Pomeranian
+          </option>
+          <option>
+            Poodle
+          </option>
+          <option>
+            Pug
+          </option>
+          <option>
+            Puggle
+          </option>
+          <option>
+            Pyrenees
+          </option>
+          <option>
+            Redbone
+          </option>
+          <option>
+            Retriever
+          </option>
+          <option>
+            Ridgeback
+          </option>
+          <option>
+            Rottweiler
+          </option>
+          <option>
+            Saluki
+          </option>
+          <option>
+            Samoyed
+          </option>
+          <option>
+            Schipperke
+          </option>
+          <option>
+            Schnauzer
+          </option>
+          <option>
+            Setter
+          </option>
+          <option>
+            Sheepdog
+          </option>
+          <option>
+            Shiba
+          </option>
+          <option>
+            Shihtzu
+          </option>
+          <option>
+            Spaniel
+          </option>
+          <option>
+            Springer
+          </option>
+          <option>
+            Stbernard
+          </option>
+          <option>
+            Terrier
+          </option>
+          <option>
+            Tervuren
+          </option>
+          <option>
+            Vizsla
+          </option>
+          <option>
+            Waterdog
+          </option>
+          <option>
+            Weimaraner
+          </option>
+          <option>
+            Whippet
+          </option>
+          <option>
+            Wolfhound
+          </option>
+        </select>
+        <div
+          class="chakra-select__icon-wrapper css-162mkon"
+        >
+          <svg
+            aria-hidden="true"
+            class="chakra-select__icon"
+            focusable="false"
+            role="presentation"
+            style="width: 1em; height: 1em; color: currentColor;"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"
+              fill="currentColor"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div
+      class="chakra-form-control css-0"
+      role="group"
+    >
+      <div
+        class="chakra-input__group css-4302v8"
+      >
+        <div
+          class="chakra-input__left-addon css-1lhl5nw"
+        >
+          Color
+        </div>
+        <input
+          aria-required="true"
+          class="chakra-input css-fu3wfu"
+          id="color"
+          placeholder="Enter hair color"
+          required=""
+          type="text"
+          value="Brown"
+        />
+      </div>
+    </div>
+    <div
+      class="chakra-form-control css-0"
+      role="group"
+    >
+      <div
+        class="chakra-input__group css-4302v8"
+      >
+        <div
+          class="chakra-input__left-addon css-1lhl5nw"
+        >
+          Birth date
+        </div>
+        <input
+          aria-required="true"
+          class="chakra-input css-fu3wfu"
+          id="dateOfBirth"
+          placeholder="Select birth date"
+          required=""
+          type="date"
+          value="2020-01-01"
+        />
+      </div>
+    </div>
+    <div
+      class="chakra-form-control css-0"
+      role="group"
+    >
+      <div
+        class="chakra-input__group css-11hkzjy"
+      >
+        <div
+          class="chakra-input__left-addon css-1lhl5nw"
+        >
+          # Chip ID
+        </div>
+        <input
+          autocomplete="off"
+          class="chakra-input css-fu3wfu"
+          id="chipId"
+          placeholder="Enter pet Chip ID number"
+          type="text"
+          value="123"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
