@@ -15,6 +15,14 @@ It was created during Codeworks bootcamp, in a period of a week, in order to pra
 <a href="images/promo shots.png"><img src="images/promo shots.png" width="800"  /></a>
 </p>
 
+# Main Features
+
+- User register & authentication.
+- Multiple pet profile creation & modification.
+- Pet weight tracking by adding/removing registers, displayed by a graph.
+- Schedule your pet appointments, like vet visits, vaccinations etc.
+- Email reminders for the scheduled events.
+
 # Instructions
 
 - Clone this repository
@@ -42,5 +50,15 @@ EMAIL_PASSWORD=GMAIL_PASSWORD
 [Video](https://youtu.be/nAHyZd0Ej88)
 
 ## Credits:
+
+### Typescript conversion, unit tests & bugfixes:
+
+Total conversion to Typescript, bugfixes and creation of a suite of tests for the project made by:
+
+- Natasha Vermeulen || [LinkedIn](https://www.linkedin.com/in/natasha-vermeulen/) || [Github](https://github.com/natashajvandam) ||
+
+- Jaime Diez Rodriguez || [LinkedIn](https://www.linkedin.com/in/jaimemastretta/) || [Github](https://github.com/jaimemastretta) ||
+
+### Logo:
 
 Dog icon made by Daniel Ducrocq from NounProject.com [LINK](https://thenounproject.com/schroederdaniel/)
