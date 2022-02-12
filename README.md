@@ -22,7 +22,7 @@ It was created during Codeworks bootcamp, in a period of a week, in order to pra
 - Navigate to `./server` and run `npm i`
 - Create a `.env` in `./client` with the following structure and add your custom values on APP ID, JS KEY and MONGODB STRING:
 
-```js
+```shell
 REACT_APP_APP_ID=SOME_VALUE
 DATABASE_URI=MONGODB_CONNECTION_STRING
 REACT_APP_JAVASCRIPT_KEY=SOME_VALUE
@@ -40,3 +40,7 @@ EMAIL_PASSWORD=GMAIL_PASSWORD
 ## Demo video:
 
 [Video](https://youtu.be/nAHyZd0Ej88)
+
+## Credits:
+
+Dog icon made by Daniel Ducrocq from NounProject.com [LINK](https://thenounproject.com/schroederdaniel/)
