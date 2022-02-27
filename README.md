@@ -1,7 +1,5 @@
 # My companion
 
-## Codeworks - Solo project
-
 <p align="center">
   <img src="images/appLogo-whitebg.png" width="400" />
 </p>
